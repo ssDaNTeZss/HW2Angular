@@ -1,0 +1,23 @@
+<table class="table-user">
+  <tr *ngFor="let student of students" [ngClass]="{
+  'table-user__tr-color-dullPink': student.GPA < 3 && needRed
+  }">
+    <!--    <td class="table-user__td-number"></td>-->
+    <td class="table-user__td-FIO">
+      <span class="table-user__td__span-lastName">{{student.lastName}}</span>
+      <span class="table-user__td__span-firstName-patronymic">{{student.firstName}}</span>
+      <span class="table-user__td__span-firstName-patronymic">{{student.patronymic}}</span>
+    </td>
+    <td class="table-user__td-DOB">{{student.DOB}}</td>
+    <td class="table-user__td-GPA" [ngClass]="{
+    'color-green': student.GPA >= 4,
+    'color-orange': student.GPA >= 3 && student.GPA < 4,
+    'color-red': student.GPA < 3
+    }">{{student.GPA}}</td>
+    <td class="table-user__td-remove">
+      <span class="material-icons md-dark md-18"
+            style="position: relative; top: 4px; margin-right: 5px; cursor: pointer;">remove_circle_outline</span>
+      Удалить
+    </td>
+  </tr>
+</table>

@@ -1,4 +1,30 @@
 <div class="main-container">
   <app-aside-left></app-aside-left>
-  <div class="main-container__ride"></div>
+  <div class="main-container__ride">
+    <div class="filter-row">
+      <div class="all-entries">
+        <span style="font-size: 20pt; font-weight: bold">Все</span>
+        <p style="font-size: 16pt; font-weight: normal; margin: 7px 0 0 0">записи</p>
+      </div>
+      <!--      <div class="filter-entries">-->
+      <!--        <span style="font-size: 20pt; font-weight: bold">Фильтр</span>-->
+      <!--        <p style="font-size: 16pt; font-weight: normal; margin: 7px 0 0 0">записей</p>-->
+      <!--      </div>-->
+      <div class="filter-row__filters">
+        <span class="material-icons md-dark md-18 span-filter"
+              (click)="illuminationOfCgrade()">{{spanFilter}}</span>
+        <span class="filter-row__filters__span"
+              (click)="filteringInOrder()">По порядку
+        <span class="material-icons md-dark md-18" [ngClass]="{
+        'span-sort': !filtrationAZ,
+        'span-sort-scaley': filtrationAZ
+        }">sort</span>
+        </span>
+        <span class="filter-row__filters__span fs-inactive">По ФИО</span>
+        <span class="filter-row__filters__span fs-inactive">По дате рождения</span>
+        <span class="filter-row__filters__span fs-inactive">По среднему баллу</span>
+      </div>
+    </div>
+    <app-table [needRed]="needRed" [students]="students" [filtrationAZ]="filtrationAZ"></app-table>
+  </div>
 </div>

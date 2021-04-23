@@ -7,6 +7,7 @@ import { MainComponent } from './main/main.component';
 import { BannerComponent } from './banner/banner.component';
 import { MainContainerComponent } from './main-container/main-container.component';
 import { AsideLeftComponent } from './aside-left/aside-left.component';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { AsideLeftComponent } from './aside-left/aside-left.component';
     MainComponent,
     BannerComponent,
     MainContainerComponent,
-    AsideLeftComponent
+    AsideLeftComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule

@@ -11,6 +11,10 @@ body {
   overflow-y: auto;
 }
 
+input {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
 a {
   text-decoration: none;
 }
@@ -249,43 +253,6 @@ main {
   margin-top: 20px;
 }
 
-.multiple-buttons {
-  display: inline-block;
-  margin-bottom: 0;
-  margin-right: 15px;
-}
-
-.multiple-buttons:last-child {
-  margin-right: 0;
-}
-
-.button-gray {
-  background-color: rgba(255, 255, 255, 0.5);
-  border: none;
-  color: rgba(255, 255, 255, 0.8);
-  padding: 16px 32px;
-  text-align: center;
-  text-decoration: none;
-  font-weight: bold;
-  text-transform: uppercase;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  border-radius: 100px;
-}
-
-.button-gray:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-.button-gray:focus {
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5);
-}
-
 .click-strip {
   position: absolute;
   bottom: 18px;
@@ -369,7 +336,6 @@ li.click-active {
   display: block;
   flex: 0 0 290px;
   width: 290px;
-  height: 5000px;
 }
 
 .main-container__left-inner {
@@ -380,9 +346,7 @@ li.click-active {
 
 .main-container__ride {
   margin-left: 40px;
-  background-color: green;
   width: 100%;
-  height: 1000px;
 }
 
 .aside__title {
@@ -799,7 +763,7 @@ label {
 }
 
 .controls__input__input {
-  color: #333;
+  color: #757575;
   background: #eaeaea;
   padding: 0 0 0 12px;
   height: 34px;
@@ -875,4 +839,187 @@ label {
 
 .controls__checkbox-group {
   margin-top: 15px;
+}
+
+.all-entries {
+  width: 12%;
+  padding-bottom: 14px;
+  border-bottom: rgb(218, 218, 218) 5px solid;
+  display: inline-block;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.filter-entries {
+  width: 12%;
+  padding-bottom: 14px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.filter-row {
+  /*padding-bottom: 15px;*/
+  border-bottom: rgb(218, 218, 218) 1px solid;
+}
+
+.filter-row__filters {
+  display: inline-block;
+}
+
+.filter-row__filters__span {
+  font-size: 16pt;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.filter-row__filters__span.fs-inactive { color: rgba(0, 0, 0, 0.26); }
+
+.button-gray {
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #adb5bd;
+  color: #757575;
+  height: 40px;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  font-size: 16px;
+  margin: 15px 2px 0 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.button-gray:hover {
+  background-color: #eaeaea;
+  border: 1px solid #626262;
+  color: #000000;
+}
+
+.button-gray:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.multiple-buttons {
+  display: inline-block;
+  width: 100%;
+}
+
+.multiple-buttons:last-child {
+  margin-right: 0;
+}
+
+.table-user {
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  font-family: 'Source Sans Pro', sans-serif;
+  counter-reset: schetchik;
+}
+
+.table-user tr {
+  height: 80px;
+  border-bottom: rgb(218, 218, 218) 1px solid;
+  counter-increment: schetchik;
+  padding: 0 20px;
+}
+
+.table-user tr:before {
+  content: counter(schetchik);
+  font-size: 20pt;
+  font-weight: normal;
+  width: 60px;
+  display: table-cell;
+  vertical-align: middle;
+  margin-left: 40px;
+}
+
+.table-user__td-number {
+  font-size: 20pt;
+  font-weight: bold;
+  width: 60px;
+}
+
+.table-user__td-FIO {
+  width: 450px;
+  padding-right: 40px;
+}
+
+.table-user__td__span-lastName {
+  font-size: 20pt;
+  font-weight: bold;
+}
+
+.table-user__td__span-firstName-patronymic {
+  font-size: 16pt;
+  font-weight: normal;
+}
+
+.table-user__td-DOB {
+  width: 100px;
+  font-size: 16pt;
+  font-weight: normal;
+  padding-right: 40px;
+}
+
+.table-user__td-GPA.color-green {
+  font-size: 20pt;
+  font-weight: bold;
+  padding-right: 40px;
+  color: #2c7f1e;
+}
+
+.table-user__td-GPA.color-orange {
+  font-size: 20pt;
+  font-weight: bold;
+  padding-right: 40px;
+  color: orange;
+}
+
+.table-user__td-GPA.color-red {
+  font-size: 20pt;
+  font-weight: bold;
+  padding-right: 40px;
+  color: #ff5c1d;
+}
+
+.table-user__td-remove {
+  font-size: 16pt;
+  font-weight: normal;
+  cursor: pointer;
+}
+/*.table-user td {*/
+/*  border: 1px solid #dddddd;*/
+/*  background: #ef2e29;*/
+/*  padding: 5px;*/
+/*}*/
+
+.table-user__tr-color-dullPink {
+  background: rgb(255,255,255);
+  background: linear-gradient(90deg, rgba(255,255,255,1) 5%, rgba(255,218,214,1) 100%);
+}
+
+.span-filter {
+  position: relative;
+  top: 4px;
+  margin-right: 20px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+.span-filter:hover {
+  font-size: 24px;
+}
+
+.span-sort {
+  position: relative;
+  top: 4px;
+}
+
+.span-sort-scaley {
+  position: relative;
+  top: 4px;
+  transform: scaleY(-1);
 }
