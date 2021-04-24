@@ -3,10 +3,10 @@
   <div class="main-container__ride">
     <div class="filter-row">
       <div class="all-entries"
+           (click)="fullList()"
            [ngClass]="{
            'all-entries__border-bottom': !filtrationByLastname && !filtrationByDOB && !filtrationByGPA
-           }"
-           (click)="fullList()">
+           }">
         <span style="font-size: 20pt; font-weight: bold">Все</span>
         <p style="font-size: 16pt; font-weight: normal; margin: 7px 0 0 0">записи</p>
       </div>

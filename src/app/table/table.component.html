@@ -14,10 +14,29 @@
     'color-orange': student.GPA >= 3 && student.GPA < 4,
     'color-red': student.GPA < 3
     }">{{student.GPA}}</td>
-    <td class="table-user__td-remove">
+    <td class="table-user__td-remove" (click)="onDeletion(student)">
       <span class="material-icons md-dark md-18"
             style="position: relative; top: 4px; margin-right: 5px; cursor: pointer;">remove_circle_outline</span>
       Удалить
     </td>
   </tr>
 </table>
+<div class="popup" [ngClass]="{
+'active': activePopup
+}">
+  <div class="popup__overlay">
+    <div class="popup__content">
+      <div class="content__close-btn" (click)="closePopup()">
+        <span class="material-icons">close</span>
+      </div>
+      <span class="material-icons md-60">dangerous</span>
+      <h1>Вы уверены?</h1>
+      <p>Удалить запись</p>
+      <span>{{deletionStudent?.lastName}}</span>
+      <span>{{deletionStudent?.firstName}}</span>
+      <span>{{deletionStudent?.patronymic}},</span>
+      <span>{{deletionStudent?.DOB}}</span>
+      <span>рождения?</span>
+    </div>
+  </div>
+</div>

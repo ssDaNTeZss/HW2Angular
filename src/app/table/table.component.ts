@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { STUDENTS } from "../random-students";
-import { Student } from "../student";
+import { StudentList } from "../student-list";
 
 @Component({
   selector: "app-table",
@@ -13,11 +12,24 @@ export class TableComponent implements OnInit {
   @Input() students?: any;
   @Input() filtrationAZ?: boolean;
 
-  // students = STUDENTS;
+  SL = new StudentList();
+  activePopup = false;
+  deletionStudent;
 
   constructor() {
   }
 
   ngOnInit(): void {
+  }
+
+  onDeletion(entry: any) {
+    this.deletionStudent = entry;
+    console.log(this.deletionStudent);
+    // this.students = this.SL.removingStudent(entry, this.students);
+    this.activePopup = !this.activePopup;
+  }
+
+  closePopup() {
+    this.activePopup = !this.activePopup;
   }
 }
