@@ -336,10 +336,11 @@ li.click-active {
   display: block;
   flex: 0 0 290px;
   width: 290px;
+  height: 100%;
 }
 
 .main-container__left-inner {
-  height: 500px;
+  height: auto;
   position: sticky;
   top: 100px;
 }
@@ -844,10 +845,18 @@ label {
 .all-entries {
   width: 12%;
   padding-bottom: 14px;
-  border-bottom: rgb(218, 218, 218) 5px solid;
   display: inline-block;
   margin-right: 20px;
   cursor: pointer;
+  transition-duration: 0.5s;
+}
+
+.all-entries:hover {
+color: #626262;
+}
+
+.all-entries__border-bottom {
+  border-bottom: rgb(218, 218, 218) 5px solid;
 }
 
 .filter-entries {
@@ -870,9 +879,18 @@ label {
   font-size: 16pt;
   margin-right: 20px;
   cursor: pointer;
+  color: rgba(0, 0, 0, 0.26);
+  transition-duration: 0.4s;
 }
 
-.filter-row__filters__span.fs-inactive { color: rgba(0, 0, 0, 0.26); }
+.filter-row__filters__span.fs-active {
+  color: rgb(0, 0, 0);
+}
+
+.filter-row__filters__span:hover {
+  font-size: 18pt;
+  font-weight: bold;
+}
 
 .button-gray {
   background-color: rgb(255, 255, 255);
@@ -1001,18 +1019,6 @@ label {
   background: linear-gradient(90deg, rgba(255,255,255,1) 5%, rgba(255,218,214,1) 100%);
 }
 
-.span-filter {
-  position: relative;
-  top: 4px;
-  margin-right: 20px;
-  cursor: pointer;
-  transition-duration: 0.4s;
-}
-
-.span-filter:hover {
-  font-size: 24px;
-}
-
 .span-sort {
   position: relative;
   top: 4px;
@@ -1023,3 +1029,28 @@ label {
   top: 4px;
   transform: scaleY(-1);
 }
+
+.span-filter:hover {
+  font-size: 24px;
+}
+
+.span-filter {
+  position: relative;
+  top: 4px;
+  margin-right: 20px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+.span-filter-3 {
+  color: rgb(0, 0, 0);
+}
+
+.span-filter-none {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+.display-none {
+  display: none;
+}
+

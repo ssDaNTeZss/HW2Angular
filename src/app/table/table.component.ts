@@ -9,16 +9,15 @@ import { Student } from "../student";
 })
 export class TableComponent implements OnInit {
 
-@Input() needRed?: boolean;
-@Input() students?: any;
-@Input() filtrationAZ?: boolean;
-
+  @Input() needRed?: boolean;
+  @Input() students?: any;
+  @Input() filtrationAZ?: boolean;
 
   // students = STUDENTS;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
-
 }

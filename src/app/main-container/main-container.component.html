@@ -2,7 +2,11 @@
   <app-aside-left></app-aside-left>
   <div class="main-container__ride">
     <div class="filter-row">
-      <div class="all-entries">
+      <div class="all-entries"
+           [ngClass]="{
+           'all-entries__border-bottom': !filtrationByLastname && !filtrationByDOB && !filtrationByGPA
+           }"
+           (click)="fullList()">
         <span style="font-size: 20pt; font-weight: bold">Все</span>
         <p style="font-size: 16pt; font-weight: normal; margin: 7px 0 0 0">записи</p>
       </div>
@@ -11,18 +15,52 @@
       <!--        <p style="font-size: 16pt; font-weight: normal; margin: 7px 0 0 0">записей</p>-->
       <!--      </div>-->
       <div class="filter-row__filters">
-        <span class="material-icons md-dark md-18 span-filter"
-              (click)="illuminationOfCgrade()">{{spanFilter}}</span>
-        <span class="filter-row__filters__span"
-              (click)="filteringInOrder()">По порядку
+        <span class="material-icons md-18 span-filter"
+              (click)="illuminationOfCgrade()"
+              [ngClass]="{
+              'span-filter-none': spanFilter == 'filter_none' ,
+              'span-filter-3': spanFilter == 'filter_3'
+        }">{{spanFilter}}</span>
+        <!--        <span class="filter-row__filters__span"-->
+        <!--              (click)="filteringInOrder()">По порядку-->
+        <!--        <span class="material-icons md-dark md-18" [ngClass]="{-->
+        <!--        'span-sort': !filtrationAZ,-->
+        <!--        'span-sort-scaley': filtrationAZ-->
+        <!--        }">sort</span>-->
+        <!--        </span>-->
+        <span class="filter-row__filters__span" [ngClass]="{
+        'fs-active': filtrationByLastname && !filtrationByDOB && !filtrationByGPA
+        }" (click)="sortByLastname()">По фамилии
         <span class="material-icons md-dark md-18" [ngClass]="{
-        'span-sort': !filtrationAZ,
-        'span-sort-scaley': filtrationAZ
+        'span-sort': filtrationByLastnameAZ,
+        'span-sort-scaley': !filtrationByLastnameAZ,
+        'display-none': !filtrationByLastname || filtrationByDOB
         }">sort</span>
         </span>
-        <span class="filter-row__filters__span fs-inactive">По ФИО</span>
-        <span class="filter-row__filters__span fs-inactive">По дате рождения</span>
-        <span class="filter-row__filters__span fs-inactive">По среднему баллу</span>
+        <span class="filter-row__filters__span"
+              [ngClass]="{'fs-active': filtrationByDOB && !filtrationByLastname && !filtrationByGPA}"
+              (click)="sortByDOB()">
+          По дате рождения
+          <span class="material-icons md-dark md-18"
+                [ngClass]="{
+               'span-sort': !filtrationByDOBAZ,
+               'span-sort-scaley': filtrationByDOBAZ,
+               'display-none': !filtrationByDOB || filtrationByLastname
+               }"
+          >sort</span>
+        </span>
+        <span class="filter-row__filters__span"
+              [ngClass]="{'fs-active': filtrationByGPA && !filtrationByLastname && !filtrationByDOB}"
+              (click)="sortByGPA()">
+          По среднему баллу
+        <span class="material-icons md-dark md-18"
+              [ngClass]="{
+               'span-sort': filtrationByGPAAZ,
+               'span-sort-scaley': !filtrationByGPAAZ,
+               'display-none': !filtrationByGPA || filtrationByLastname || filtrationByDOB
+               }"
+        >sort</span>
+        </span>
       </div>
     </div>
     <app-table [needRed]="needRed" [students]="students" [filtrationAZ]="filtrationAZ"></app-table>
