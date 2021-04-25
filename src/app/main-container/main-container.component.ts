@@ -25,8 +25,8 @@ export class MainContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    const SL = new StudentList();
-    this.students = SL.returnNormalSL();
+    console.log("INIT");
+    this.students = this.SL.returnNormalSL();
   }
 
   illuminationOfCgrade(): void {
@@ -70,6 +70,7 @@ export class MainContainerComponent implements OnInit {
   }
 
   sortByGPA(): void {
+    console.log("sortByGPA", this.students);
     this.filtrationByGPA = true;
 
     this.filtrationByLastname = false;

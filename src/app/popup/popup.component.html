@@ -1,0 +1,32 @@
+<div class="popup" [ngClass]="{
+'active': activePopup
+}">
+  <div class="popup__overlay">
+    <div class="popup__content">
+      <div class="content__close-btn" (click)="closePopup()">
+        <span class="material-icons">close</span>
+      </div>
+      <span class="material-icons md-60 md-red">dangerous</span>
+      <h1 style="color: #ff5c1d;">Вы уверены?</h1>
+      <h3>Удалить запись</h3>
+      <span class="table-user__td__span-lastName">{{student?.lastName}}</span>
+      <span class="table-user__td__span-firstName-patronymic">{{student?.firstName}}</span>
+      <span class="table-user__td__span-firstName-patronymic">{{student?.patronymic}},</span>
+      <span class="table-user__td-DOB">{{student?.DOB}}</span>
+      <div class="multiple-buttons">
+        <button class="button-gray" (click)="onDeletion()">Удалить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="popup" [ngClass]="{
+'active': activePopupDone
+}">
+  <div class="popup__overlay">
+    <div class="popup__content">
+      <span class="material-icons md-100 md-green">task_alt</span>
+      <h1>Done!</h1>
+    </div>
+  </div>
+</div>

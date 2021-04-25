@@ -1,38 +1,3 @@
-// class Student<T> {
-//   public lastName: T;
-//   public firstName: T;
-//   public patronymic: T | undefined;
-//   public DOB: Date;
-//   public GPA: number;
-//   public number: number;
-//
-//   constructor(lastName: T, firstName: T, DOB: Date, GPA: number, patronymic?: T) {
-//     this.lastName = lastName;
-//     this.firstName = firstName;
-//     this.patronymic = patronymic;
-//     this.DOB = DOB;
-//     this.GPA = GPA;
-//     this.number = StudentList.length;
-//   }
-// }
-//
-// export class StudentList<T> {
-//   public insert(lastName: T, firstName: T, DOB: Date, GPA: number, patronymic?: T): Student<T> {
-//     const STUDENT = new Student(lastName, firstName, DOB, GPA, patronymic);
-//     return STUDENT;
-//   }
-//
-//   public allStudents(): Array<T> {
-//     const result: Array<T> = [];
-//     const recursive = (node: Student<T> | null) => {
-//           recursive(node);
-//           // @ts-ignore
-//       result.push(node);
-//     };
-//     return result;
-//   }
-// }
-
 class Student {
   public lastName: string;
   public firstName: string;
@@ -80,6 +45,9 @@ export class StudentList<T> {
   ];
 
   public sorting(fieldName: "lastName" | "DOB" | "GPA" = "lastName", type: "AtoZ" | "ZtoA" = "AtoZ"): Student[] {
+
+    console.log(this.students);
+
     if (fieldName === "lastName") {
       if (type === "AtoZ") {
         this.students.sort(function(a, b) {
@@ -161,8 +129,146 @@ export class StudentList<T> {
   }
 
   public removingStudent(entry: Student, list: Student[]): Student[] {
-    console.log(list.indexOf(entry));
     list.splice(list.indexOf(entry), 1);
     return list;
   }
+
+
+  public filterByDate(typeData: "dateFrom" | "dateTo" | "dateDouble", dateArr: any): Student[] {
+    console.log("filterByDate");
+
+    let newStudents = [];
+
+    if (typeData === "dateFrom") {
+      for (const student of this.students) {
+        if (student.DOB >= dateArr[0]) {
+          newStudents.push(student);
+        }
+      }
+    }
+
+    if (typeData === "dateTo") {
+      for (const student of this.students) {
+        if (student.DOB <= dateArr[0]) {
+          newStudents.push(student);
+        }
+      }
+    }
+
+    if (typeData === "dateDouble") {
+      for (const student of this.students) {
+        if (student.DOB >= dateArr[0] && student.DOB <= dateArr[1]) {
+          newStudents.push(student);
+        }
+      }
+    }
+
+    return newStudents;
+  }
+
+  public filterByGPA(typeGPA: "GPAFrom" | "GPATo" | "GPADouble" = "GPAFrom", GPAArr: any): Student[] {
+    // console.log("typeGPA", typeGPA);
+    // console.log("GPAArr", GPAArr);
+
+    console.log("filterByGPA");
+
+    let newStudents = [];
+
+    if (typeGPA === "GPAFrom") {
+      for (const student of this.students) {
+        if (student.GPA >= GPAArr[0]) {
+          newStudents.push(student);
+        }
+      }
+    }
+
+    if (typeGPA === "GPATo") {
+      for (const student of this.students) {
+        if (student.GPA <= GPAArr[0]) {
+          newStudents.push(student);
+        }
+      }
+    }
+
+    if (typeGPA === "GPADouble") {
+      for (const student of this.students) {
+        if (student.GPA >= GPAArr[0] && student.GPA <= GPAArr[1]) {
+          newStudents.push(student);
+        }
+      }
+    }
+
+    this.students = newStudents;
+    console.log(newStudents);
+    console.log(this.students);
+
+    return newStudents;
+  }
+
+  public filterByDateAndGPA(typeData: "dateFrom" | "dateTo" | "dateDouble" = "dateFrom", dateArr: any,
+                            typeGPA: "GPAFrom" | "GPATo" | "GPADouble" = "GPAFrom", GPAArr: any): Student[] {
+
+    console.log("filterByDateAndGPA");
+    console.log(typeData);
+    console.log(dateArr);
+    console.log(typeGPA);
+    console.log(GPAArr);
+
+    let newStudentsByDate = [],
+      newStudentsByDateAndGPA = [];
+
+    if (typeData === "dateFrom") {
+      for (const student of this.students) {
+        if (student.DOB >= dateArr[0]) {
+          newStudentsByDate.push(student);
+        }
+      }
+    }
+
+    if (typeData === "dateTo") {
+      for (const student of this.students) {
+        if (student.DOB <= dateArr[0]) {
+          newStudentsByDate.push(student);
+        }
+      }
+    }
+
+    if (typeData === "dateDouble") {
+      for (const student of this.students) {
+        if (student.DOB >= dateArr[0] && student.DOB <= dateArr[1]) {
+          newStudentsByDate.push(student);
+        }
+      }
+    }
+
+    console.log(newStudentsByDate);
+
+    if (typeGPA === "GPAFrom") {
+      for (const student of newStudentsByDate) {
+        if (student.GPA >= GPAArr[0]) {
+          newStudentsByDateAndGPA.push(student);
+        }
+      }
+    }
+
+    if (typeGPA === "GPATo") {
+      for (const student of newStudentsByDate) {
+        if (student.GPA <= GPAArr[0]) {
+          newStudentsByDateAndGPA.push(student);
+        }
+      }
+    }
+
+    if (typeGPA === "GPADouble") {
+      for (const student of newStudentsByDate) {
+        if (student.GPA >= GPAArr[0] && student.GPA <= GPAArr[1]) {
+          newStudentsByDateAndGPA.push(student);
+        }
+      }
+    }
+
+    return newStudentsByDateAndGPA;
+  }
 }
+
+
