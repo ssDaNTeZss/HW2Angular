@@ -10,6 +10,7 @@ import { MainContainerComponent } from './main-container/main-container.componen
 import { AsideLeftComponent } from './aside-left/aside-left.component';
 import { TableComponent } from './table/table.component';
 import { PopupComponent } from './popup/popup.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PopupComponent } from './popup/popup.component';
     MainContainerComponent,
     AsideLeftComponent,
     TableComponent,
-    PopupComponent
+    PopupComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
-import { types } from "util";
 import { SimpleService } from "../simple.service";
 import { StudentList } from "../student-list";
 
@@ -37,26 +36,21 @@ export class TableComponent implements OnInit, OnDestroy {
 
     this.subs = this.simpleService.dateType$.subscribe((dateType) => this.dateType = dateType);
     this.subs = this.simpleService.GPAType$.subscribe((GPAType) => {
-      // console.log("Set GPAType: ", GPAType);
       this.GPAType = GPAType;
     });
 
     this.subs = this.simpleService.dateArr$.subscribe((dateArr) => {
-      // console.log("dateArr: ", dateArr);
-      // console.log("dateType: ", this.dateType);
-      // console.log("GPAType: ", this.GPAType);
-      // if (this.dateType && this.GPAType) {
         this.dateArr = dateArr;
-      // } else {
         this.students = this.SL.filterByDate(this.dateType, dateArr);
-      // }
+        this.simpleService.transferStudents(this.students);
     });
     this.subs = this.simpleService.GPAArr$.subscribe((GPAArr) => {
       if (this.dateType) {
-        // console.log("if GPAType: ", this.GPAType);
         this.students = this.SL.filterByDateAndGPA(this.dateType, this.dateArr, this.GPAType, GPAArr);
+        this.simpleService.transferStudents(this.students);
       } else {
         this.students = this.SL.filterByGPA(this.GPAType, GPAArr);
+        this.simpleService.transferStudents(this.students);
       }
     });
 }

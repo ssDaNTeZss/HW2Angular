@@ -44,13 +44,10 @@ export class StudentList<T> {
     {lastName: "Ижутина", firstName: "Марфа", patronymic: "Васильевна", DOB: "2000-08-30", GPA: 4.82},
   ];
 
-  public sorting(fieldName: "lastName" | "DOB" | "GPA" = "lastName", type: "AtoZ" | "ZtoA" = "AtoZ"): Student[] {
-
-    console.log(this.students);
-
+  public sorting(fieldName: "lastName" | "DOB" | "GPA" = "lastName", type: "AtoZ" | "ZtoA" = "AtoZ", students: Student[]): Student[] {
     if (fieldName === "lastName") {
       if (type === "AtoZ") {
-        this.students.sort(function(a, b) {
+        students.sort(function(a, b) {
           if (a.lastName > b.lastName) {
             return 1;
           }
@@ -60,7 +57,7 @@ export class StudentList<T> {
           return 0;
         });
       } else {
-        this.students.sort(function(a, b) {
+        students.sort(function(a, b) {
           if (a.lastName < b.lastName) {
             return 1;
           }
@@ -70,12 +67,12 @@ export class StudentList<T> {
           return 0;
         });
       }
-      return this.students;
+      return students;
     }
 
     if (fieldName === "DOB") {
       if (type === "AtoZ") {
-        this.students.sort(function(a, b) {
+        students.sort(function(a, b) {
           if (a.DOB > b.DOB) {
             return 1;
           }
@@ -85,7 +82,7 @@ export class StudentList<T> {
           return 0;
         });
       } else {
-        this.students.sort(function(a, b) {
+        students.sort(function(a, b) {
           if (a.DOB < b.DOB) {
             return 1;
           }
@@ -95,12 +92,12 @@ export class StudentList<T> {
           return 0;
         });
       }
-      return this.students;
+      return students;
     }
 
     if (fieldName === "GPA") {
       if (type === "AtoZ") {
-        this.students.sort(function(a, b) {
+        students.sort(function(a, b) {
           if (a.GPA > b.GPA) {
             return 1;
           }
@@ -110,7 +107,7 @@ export class StudentList<T> {
           return 0;
         });
       } else {
-        this.students.sort(function(a, b) {
+        students.sort(function(a, b) {
           if (a.GPA < b.GPA) {
             return 1;
           }
@@ -120,7 +117,7 @@ export class StudentList<T> {
           return 0;
         });
       }
-      return this.students;
+      return students;
     }
   }
 
@@ -135,8 +132,6 @@ export class StudentList<T> {
 
 
   public filterByDate(typeData: "dateFrom" | "dateTo" | "dateDouble", dateArr: any): Student[] {
-    console.log("filterByDate");
-
     let newStudents = [];
 
     if (typeData === "dateFrom") {
@@ -167,10 +162,6 @@ export class StudentList<T> {
   }
 
   public filterByGPA(typeGPA: "GPAFrom" | "GPATo" | "GPADouble" = "GPAFrom", GPAArr: any): Student[] {
-    // console.log("typeGPA", typeGPA);
-    // console.log("GPAArr", GPAArr);
-
-    console.log("filterByGPA");
 
     let newStudents = [];
 
@@ -198,21 +189,11 @@ export class StudentList<T> {
       }
     }
 
-    this.students = newStudents;
-    console.log(newStudents);
-    console.log(this.students);
-
     return newStudents;
   }
 
   public filterByDateAndGPA(typeData: "dateFrom" | "dateTo" | "dateDouble" = "dateFrom", dateArr: any,
                             typeGPA: "GPAFrom" | "GPATo" | "GPADouble" = "GPAFrom", GPAArr: any): Student[] {
-
-    console.log("filterByDateAndGPA");
-    console.log(typeData);
-    console.log(dateArr);
-    console.log(typeGPA);
-    console.log(GPAArr);
 
     let newStudentsByDate = [],
       newStudentsByDateAndGPA = [];
@@ -241,8 +222,6 @@ export class StudentList<T> {
       }
     }
 
-    console.log(newStudentsByDate);
-
     if (typeGPA === "GPAFrom") {
       for (const student of newStudentsByDate) {
         if (student.GPA >= GPAArr[0]) {
@@ -270,5 +249,3 @@ export class StudentList<T> {
     return newStudentsByDateAndGPA;
   }
 }
-
-

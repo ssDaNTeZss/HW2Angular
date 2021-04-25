@@ -1,4 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
+import { SimpleService } from "../simple.service";
 import { StudentList } from "../student-list";
 
 @Component({
@@ -7,7 +9,8 @@ import { StudentList } from "../student-list";
   styleUrls: ["./main-container.component.css"]
 })
 
-export class MainContainerComponent implements OnInit {
+export class MainContainerComponent implements OnInit, OnDestroy {
+  private subs: Subscription;
 
   needRed = true;
   spanFilter: string = "filter_3";
@@ -21,13 +24,24 @@ export class MainContainerComponent implements OnInit {
   filtrationByGPA = false;
   filtrationByGPAAZ = true;
 
-  constructor() {
+  constructor(
+    private readonly simpleService: SimpleService,
+  ) {
   }
 
   ngOnInit() {
-    console.log("INIT");
     this.students = this.SL.returnNormalSL();
+    this.subs = this.simpleService.STUDENTS$.subscribe((student) => {
+      this.students = student;
+    });
+
+    this.subs = this.simpleService.resetTable$.subscribe((resetTable) => this.fullList());
   }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
+
 
   illuminationOfCgrade(): void {
     if (this.spanFilter === "filter_3") {
@@ -46,10 +60,10 @@ export class MainContainerComponent implements OnInit {
     this.filtrationByGPA = false;
 
     if (this.filtrationByLastnameAZ) {
-      this.students = this.SL.sorting("lastName", "AtoZ");
+      this.students = this.SL.sorting("lastName", "AtoZ", this.students);
       this.filtrationByLastnameAZ = !this.filtrationByLastnameAZ;
     } else {
-      this.students = this.SL.sorting("lastName", "ZtoA");
+      this.students = this.SL.sorting("lastName", "ZtoA", this.students);
       this.filtrationByLastnameAZ = !this.filtrationByLastnameAZ;
     }
   }
@@ -61,26 +75,25 @@ export class MainContainerComponent implements OnInit {
     this.filtrationByGPA = false;
 
     if (this.filtrationByDOBAZ) {
-      this.students = this.SL.sorting("DOB", "AtoZ");
+      this.students = this.SL.sorting("DOB", "AtoZ", this.students);
       this.filtrationByDOBAZ = !this.filtrationByDOBAZ;
     } else {
-      this.students = this.SL.sorting("DOB", "ZtoA");
+      this.students = this.SL.sorting("DOB", "ZtoA", this.students);
       this.filtrationByDOBAZ = !this.filtrationByDOBAZ;
     }
   }
 
   sortByGPA(): void {
-    console.log("sortByGPA", this.students);
     this.filtrationByGPA = true;
 
     this.filtrationByLastname = false;
     this.filtrationByDOB = false;
 
     if (this.filtrationByGPAAZ) {
-      this.students = this.SL.sorting("GPA", "AtoZ");
+      this.students = this.SL.sorting("GPA", "AtoZ", this.students);
       this.filtrationByGPAAZ = !this.filtrationByGPAAZ;
     } else {
-      this.students = this.SL.sorting("GPA", "ZtoA");
+      this.students = this.SL.sorting("GPA", "ZtoA", this.students);
       this.filtrationByGPAAZ = !this.filtrationByGPAAZ;
     }
   }

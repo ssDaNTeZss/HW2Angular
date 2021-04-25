@@ -14,6 +14,8 @@ export class SimpleService {
   public GPAArr$ = new Subject<any>();
   public GPAType$ = new Subject<string>();
   public resetTable$ = new Subject<boolean>();
+
+  public STUDENTS$ = new Subject<any>();
   // public dateFrom$ = new Subject<string>();
   // public dateTo$ = new Subject<string>();
 
@@ -51,6 +53,10 @@ export class SimpleService {
 
   public resetTable(resetTable: boolean) {
     this.resetTable$.next(resetTable);
+  }
+
+  public transferStudents(students: any) {
+    this.STUDENTS$.next(students);
   }
 }
 

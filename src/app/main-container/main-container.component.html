@@ -10,10 +10,6 @@
         <span style="font-size: 20pt; font-weight: bold">Все</span>
         <p style="font-size: 16pt; font-weight: normal; margin: 7px 0 0 0">записи</p>
       </div>
-      <!--      <div class="filter-entries">-->
-      <!--        <span style="font-size: 20pt; font-weight: bold">Фильтр</span>-->
-      <!--        <p style="font-size: 16pt; font-weight: normal; margin: 7px 0 0 0">записей</p>-->
-      <!--      </div>-->
       <div class="filter-row__filters">
         <span class="material-icons md-18 span-filter"
               (click)="illuminationOfCgrade()"
@@ -21,13 +17,6 @@
               'span-filter-none': spanFilter == 'filter_none' ,
               'span-filter-3': spanFilter == 'filter_3'
         }">{{spanFilter}}</span>
-        <!--        <span class="filter-row__filters__span"-->
-        <!--              (click)="filteringInOrder()">По порядку-->
-        <!--        <span class="material-icons md-dark md-18" [ngClass]="{-->
-        <!--        'span-sort': !filtrationAZ,-->
-        <!--        'span-sort-scaley': filtrationAZ-->
-        <!--        }">sort</span>-->
-        <!--        </span>-->
         <span class="filter-row__filters__span" [ngClass]="{
         'fs-active': filtrationByLastname && !filtrationByDOB && !filtrationByGPA
         }" (click)="sortByLastname()">По фамилии

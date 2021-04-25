@@ -565,7 +565,8 @@ li.click-active {
 .footer-wrap {
   border-top: 2pt solid rgba(77, 77, 77, 0.2);
   background: #0e0e10;
-  padding: 50px 0;
+  margin-top: 40px;
+  height: 55px;
 }
 
 .stack {
@@ -911,6 +912,13 @@ color: #626262;
   transition-duration: 0.4s;
   cursor: pointer;
   border-radius: 8px;
+}
+
+button:disabled {
+  background-color: #bcbcbc;
+  border: 0px solid #adb5bd;
+  font-size: 14px;
+  color: #757575;
 }
 
 .button-gray:hover {
