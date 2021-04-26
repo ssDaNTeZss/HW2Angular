@@ -1131,4 +1131,11 @@ button:disabled {
   transform: translate(-50%, -50%) scale(1);
 }
 
+input.ng-invalid {
+  color:  #ff5c1d;
+}
 
+.error-block {
+  color:  #ff5c1d;
+  font-size: 12pt;
+}

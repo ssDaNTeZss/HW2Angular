@@ -38,14 +38,14 @@
           </a>
           <div class="filters-list__controls__content">
             <div class="controls__input-small" style="margin-right: 2%">
-              <input class="controls__input__input" placeholder="от 2.00" ngModel name="GPAFrom"
+              <input class="controls__input__input" placeholder="от 2.00" #propName="ngModel" ngModel name="GPAFrom"
                      maxlength="1" pattern="^[2-5]">
             </div>
             <div class="controls__input-small" style="margin-left: 2%">
-              <input class="controls__input__input" placeholder="до 5.00" ngModel name="GPATo"
+              <input class="controls__input__input" placeholder="до 5.00" #propName2="ngModel" ngModel name="GPATo"
                      maxlength="1" pattern="^[2-5]">
             </div>
-
+            <span class="error-block" *ngIf="!propName.valid || !propName2.valid">Допустимый диапозон цифр от 2 до 5</span>
           </div>
         </div>
         <div class="multiple-buttons">

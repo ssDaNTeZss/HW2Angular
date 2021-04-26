@@ -6,48 +6,51 @@ import { Subject } from "rxjs";
 })
 export class SimpleService {
   public activePopup$ = new Subject<boolean>();
-  public student$ = new Subject<any>();
-  public studentsList$ = new Subject<any>();
-  public search$ = new Subject<any>();
-  public dateArr$ = new Subject<any>();
-  public dateType$ = new Subject<string>();
-  public GPAArr$ = new Subject<any>();
-  public GPAType$ = new Subject<string>();
+
+  public student$ = new Subject<[]>();
+  public studentsList$ = new Subject<[]>();
+
+  public search$ = new Subject<string[]>();
+
+  public dateArr$ = new Subject<string[]>();
+  public dateType$ = new Subject<"dateFrom" | "dateTo" | "dateDouble">();
+  public GPAArr$ = new Subject<number[]>();
+  public GPAType$ = new Subject<"GPAFrom" | "GPATo" | "GPADouble">();
+
   public resetTable$ = new Subject<boolean>();
 
-  public STUDENTS$ = new Subject<any>();
-  // public dateFrom$ = new Subject<string>();
-  // public dateTo$ = new Subject<string>();
+  public STUDENTS$ = new Subject<[]>();
+
 
   public changeActivePopup(activePopup: boolean) {
     this.activePopup$.next(activePopup);
   }
 
-  public changeStudent(student: any) {
+  public changeStudent(student: []) {
     this.student$.next(student);
   }
 
-  public changeStudentsList(studentsList: any) {
+  public changeStudentsList(studentsList: []) {
     this.studentsList$.next(studentsList);
   }
 
-  public changeSearch(search: any) {
+  public changeSearch(search: string[]) {
     this.search$.next(search);
   }
 
-  public changeData(dateArr: any) {
+  public changeData(dateArr: string[]) {
     this.dateArr$.next(dateArr);
   }
 
-  public changeDataType(dateType: string) {
+  public changeDataType(dateType: "dateFrom" | "dateTo" | "dateDouble") {
     this.dateType$.next(dateType);
   }
 
-  public changeGPA(GPAArr: any) {
+  public changeGPA(GPAArr: number[]) {
     this.GPAArr$.next(GPAArr);
   }
 
-  public changeGPAType(GPAType: string) {
+  public changeGPAType(GPAType: "GPAFrom" | "GPATo" | "GPADouble") {
     this.GPAType$.next(GPAType);
   }
 
@@ -55,7 +58,7 @@ export class SimpleService {
     this.resetTable$.next(resetTable);
   }
 
-  public transferStudents(students: any) {
+  public transferStudents(students: []) {
     this.STUDENTS$.next(students);
   }
 }

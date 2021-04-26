@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { SimpleService } from "../simple.service";
+import { Student } from "../student";
 import { StudentList } from "../student-list";
 
 @Component({

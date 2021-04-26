@@ -131,7 +131,7 @@ export class StudentList<T> {
   }
 
 
-  public filterByDate(typeData: "dateFrom" | "dateTo" | "dateDouble", dateArr: any): Student[] {
+  public filterByDate(typeData: "dateFrom" | "dateTo" | "dateDouble" = "dateFrom", dateArr: string[]): Student[] {
     let newStudents = [];
 
     if (typeData === "dateFrom") {
@@ -161,7 +161,7 @@ export class StudentList<T> {
     return newStudents;
   }
 
-  public filterByGPA(typeGPA: "GPAFrom" | "GPATo" | "GPADouble" = "GPAFrom", GPAArr: any): Student[] {
+  public filterByGPA(typeGPA: "GPAFrom" | "GPATo" | "GPADouble" = "GPAFrom", GPAArr: number[]): Student[] {
 
     let newStudents = [];
 
@@ -192,8 +192,8 @@ export class StudentList<T> {
     return newStudents;
   }
 
-  public filterByDateAndGPA(typeData: "dateFrom" | "dateTo" | "dateDouble" = "dateFrom", dateArr: any,
-                            typeGPA: "GPAFrom" | "GPATo" | "GPADouble" = "GPAFrom", GPAArr: any): Student[] {
+  public filterByDateAndGPA(typeData: "dateFrom" | "dateTo" | "dateDouble" = "dateFrom", dateArr: string[],
+                            typeGPA: "GPAFrom" | "GPATo" | "GPADouble" = "GPAFrom", GPAArr: number[]): Student[] {
 
     let newStudentsByDate = [],
       newStudentsByDateAndGPA = [];
