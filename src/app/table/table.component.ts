@@ -17,6 +17,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
   SL = new StudentList();
   activePopup = false;
+  activateEditing = false;
   deletionStudent;
   search = [];
   dateType: "dateFrom" | "dateTo" | "dateDouble";
@@ -79,5 +80,12 @@ export class TableComponent implements OnInit, OnDestroy {
     this.simpleService.changeActivePopup(this.activePopup);
     this.simpleService.changeStudent(entry);
     this.simpleService.changeStudentsList(this.students);
+  }
+
+  onEditing(student: []): void {
+    this.activateEditing = true;
+
+    this.simpleService.changeActivateEditing(this.activateEditing);
+    this.simpleService.changeStudent(student);
   }
 }

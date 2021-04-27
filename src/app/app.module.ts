@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -11,6 +11,7 @@ import { AsideLeftComponent } from './aside-left/aside-left.component';
 import { TableComponent } from './table/table.component';
 import { PopupComponent } from './popup/popup.component';
 import { FooterComponent } from './footer/footer.component';
+import { AddAndEditComponent } from './add-and-edit/add-and-edit.component';
 
 @NgModule({
   declarations: [
@@ -22,12 +23,14 @@ import { FooterComponent } from './footer/footer.component';
     AsideLeftComponent,
     TableComponent,
     PopupComponent,
-    FooterComponent
+    FooterComponent,
+    AddAndEditComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

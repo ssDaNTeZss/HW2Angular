@@ -3,7 +3,7 @@
   <tr *ngFor="let student of students" [ngClass]="{
   'table-user__tr-color-dullPink': student.GPA < 3 && needRed
   }"
-  [class.table-user__tr-color-lightGreen]="(search.indexOf(student.lastName) != -1) ||
+      [class.table-user__tr-color-lightGreen]="(search.indexOf(student.lastName) != -1) ||
   (search.indexOf(student.firstName) != -1) ||
   (search.indexOf(student.patronymic) != -1)">
     <!--    <td class="table-user__td-number"></td>-->
@@ -21,6 +21,9 @@
     <td class="table-user__td-remove" (click)="onDeletion(student)">
       <span class="material-icons md-24 highlight_off">highlight_off</span>
       Удалить
+    </td>
+    <td class="table-user__more" (click)="onEditing(student)">
+      <span class="material-icons md-24 more_vert">more_vert</span>
     </td>
   </tr>
 </table>

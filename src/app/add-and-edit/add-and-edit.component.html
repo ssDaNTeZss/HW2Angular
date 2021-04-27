@@ -1,0 +1,71 @@
+<form novalidate class="edit-form"
+      *ngIf="this.activateEditing"
+      [formGroup]="formModelEditStudent"
+      (ngSubmit)="onSubmitEditForm()"
+>
+  <p class="edit-form__header">Редактирование записи</p>
+
+  <div formGroupName="fullName">
+    <div class="col-w40">
+      <div class="form__group field">
+        <input type="input"
+               class="form__field"
+               placeholder="Фамилия"
+               id="lastName"
+               formControlName="lastName"
+               autofocus
+        />
+        <label for="lastName" class="form__label">Фамилия</label>
+      </div>
+      <span class="error-block">Допустимый диапозон цифр от 2 до 5</span>
+    </div>
+    <div class="col-w30">
+      <div class="form__group field">
+        <input type="input"
+               class="form__field"
+               placeholder="Имя"
+               id="firstName"
+               formControlName="firstName"/>
+        <label for="firstName" class="form__label">Имя</label>
+      </div>
+    </div>
+    <div class="col-w30">
+      <div class="form__group field">
+        <input type="input"
+               class="form__field"
+               placeholder="Отчество"
+               id='patronymic'
+               formControlName="patronymic"/>
+        <label for="patronymic" class="form__label">Отчество</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-w30" style="padding: 0px">
+    <div class="form__group field">
+      <input type="date"
+             class="form__field"
+             placeholder="Дата рождения"
+             id="DOB"
+             formControlName="DOB"
+      />
+      <label for="DOB" class="form__label">Дата рождения</label>
+    </div>
+  </div>
+  <div class="col-w30">
+    <div class="form__group field">
+      <input type="number"
+             class="form__field"
+             placeholder="Средний балл"
+             id="GPA"
+             formControlName="GPA"
+      />
+      <label for="GPA" class="form__label">Средний балл</label>
+    </div>
+  </div>
+  <div class="col-w40" style="padding-left: 20px">
+    <div class="multiple-buttons">
+      <button class="button-gray" type="submit">Изменить</button>
+    </div>
+  </div>
+</form>
