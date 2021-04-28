@@ -73,7 +73,93 @@
   </div>
   <div class="col-w40" style="padding-left: 20px">
     <div class="multiple-buttons">
-      <button class="button-gray" type="submit" [disabled]="formModelEditStudent.invalid">Изменить</button>
+      <button class="button-gray"
+              style="margin-top: 27px"
+              type="submit" [disabled]="formModelEditStudent.invalid">Изменить</button>
     </div>
   </div>
 </form>
+
+
+<form novalidate class="edit-form"
+      *ngIf="this.activateOfAdd"
+      [formGroup]="formModelAddingStudent"
+      (ngSubmit)="onSubmitAddForm()"
+>
+  <p class="edit-form__header">Добавления новой записи <span class="span-successfully" *ngIf="successfully">Успешно!</span></p>
+
+  <div formGroupName="fullName">
+    <div class="col-w40">
+      <div class="form__group field">
+        <input type="input"
+               class="form__field"
+               placeholder="Фамилия"
+               id="lastNameAdd"
+               formControlName="lastName"
+               autofocus
+        />
+        <label for="lastName" class="form__label">Фамилия</label>
+      </div>
+      <!--      <span class="error-block">Неверный формат (использованы недопустимые символы)</span>-->
+    </div>
+    <div class="col-w30">
+      <div class="form__group field">
+        <input type="input"
+               class="form__field"
+               placeholder="Имя"
+               id="firstNameAdd"
+               formControlName="firstName"/>
+        <label for="firstName" class="form__label">Имя</label>
+      </div>
+      <!--      <span class="error-block">Неверный формат (использованы недопустимые символы)</span>-->
+    </div>
+    <div class="col-w30">
+      <div class="form__group field">
+        <input type="input"
+               class="form__field"
+               placeholder="Отчество"
+               id='patronymicAdd'
+               formControlName="patronymic"/>
+        <label for="patronymic" class="form__label">Отчество</label>
+      </div>
+      <!--      <span class="error-block">Неверный формат (использованы недопустимые символы)</span>-->
+    </div>
+  </div>
+
+  <div class="col-w30" style="padding: 0px">
+    <div class="form__group field">
+      <input type="date"
+             class="form__field"
+             placeholder="Дата рождения"
+             id="DOBadd"
+             formControlName="DOB"
+      />
+      <label for="DOB" class="form__label">Дата рождения</label>
+    </div>
+<!--    <span class="error-block" *ngIf="isControlInvalid('DOB')">-->
+<!--      Неверный формат (возраст не менее 10 лет)-->
+<!--    </span>-->
+  </div>
+  <div class="col-w30">
+    <div class="form__group field">
+      <input type="number"
+             class="form__field"
+             placeholder="Средний балл"
+             id="GPAadd"
+             formControlName="GPA"
+      />
+      <label for="GPA" class="form__label">Средний балл</label>
+    </div>
+<!--    <span class="error-block" *ngIf="isControlInvalid('GPA')">-->
+<!--      Неверный формат (допустимый диапозон цифр от 2 до 5)-->
+<!--    </span>-->
+  </div>
+  <div class="col-w40" style="padding-left: 20px">
+    <div class="multiple-buttons">
+      <button class="button-gray"
+              style="margin-top: 27px"
+              type="submit" [disabled]="formModelAddingStudent.invalid">Добавить</button>
+    </div>
+  </div>
+</form>
+

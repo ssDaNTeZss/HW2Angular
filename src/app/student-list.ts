@@ -1,4 +1,4 @@
-class Student {
+export class Student {
   public lastName: string;
   public firstName: string;
   public patronymic: string | undefined;
@@ -43,6 +43,10 @@ export class StudentList<T> {
     {lastName: "Шапошников", firstName: "Венедикт", patronymic: "Максимович", DOB: "1998-08-20", GPA: 4.66},
     {lastName: "Ижутина", firstName: "Марфа", patronymic: "Васильевна", DOB: "2000-08-30", GPA: 4.82},
   ];
+
+  getStudents(): Student[] {
+    return this.students;
+  }
 
   public sorting(fieldName: "lastName" | "DOB" | "GPA" = "lastName", type: "AtoZ" | "ZtoA" = "AtoZ", students: Student[]): Student[] {
     if (fieldName === "lastName") {
@@ -140,6 +144,13 @@ export class StudentList<T> {
       list[list.indexOf(entry)].GPA = editedEntry.GPA;
     }
 
+    return list;
+  }
+
+  public studentAdd(entry: Student, list: Student[]): Student[] {
+    // const STUDENT = new Student(entry);
+    list.push(entry);
+    console.log(list);
     return list;
   }
 

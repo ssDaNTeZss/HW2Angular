@@ -14,12 +14,14 @@ export class AddAndEditComponent implements OnInit, OnDestroy {
   private subs: Subscription;
 
   activateEditing: boolean;
+  activateOfAdd: boolean;
   SL = new StudentList();
   student: any = [];
   studentsList: [];
   successfully = false;
 
   formModelEditStudent: FormGroup;
+  formModelAddingStudent: FormGroup;
 
   constructor(
     private readonly simpleService: SimpleService,
@@ -51,6 +53,35 @@ export class AddAndEditComponent implements OnInit, OnDestroy {
       GPA: new FormControl("",
         [
           Validators.required,
+          Validators.pattern(/^([2-5]|[2-5]{1}[\.\,]{1}[0-9]{1,2})?$/),
+        ],
+      )
+    });
+
+    this.formModelAddingStudent = new FormGroup({
+      fullName: new FormGroup({
+        lastName: new FormControl("",
+          [
+            Validators.required,
+            Validators.pattern(/^([А-Я]{1}[а-яё\-]{1,23}|[A-Z]{1}[a-z\-]{1,23})?$/)
+          ]
+        ),
+        firstName: new FormControl("",
+          [
+            Validators.required,
+            Validators.pattern(/^([А-Я]{1}[а-яё\-]{1,23}|[A-Z]{1}[a-z\-]{1,23})?$/)
+          ]
+        ),
+        patronymic: new FormControl("")
+      }),
+      DOB: new FormControl("", [
+          Validators.required,
+          dateValidator()
+        ]
+      ),
+      GPA: new FormControl("",
+        [
+          Validators.required,
           Validators.pattern(/^([2-5]|[2-5]{1}[\.\,]{1}[0-9]{1,2})?$/)
         ]
       )
@@ -58,6 +89,8 @@ export class AddAndEditComponent implements OnInit, OnDestroy {
 
     this.subs = this.simpleService.activateEditing$.subscribe((activateEditing) => this.activateEditing = activateEditing);
     this.subs = this.simpleService.studentsList$.subscribe((studentsList) => this.studentsList = studentsList);
+
+    this.subs = this.simpleService.activateOfAdd$.subscribe((activateOfAdd) => this.activateOfAdd = activateOfAdd);
 
     this.subs = this.simpleService.student$.subscribe((student) => {
       this.student = student;
@@ -108,11 +141,41 @@ export class AddAndEditComponent implements OnInit, OnDestroy {
       GPA: FMES.GPA,
     };
 
-      this.SL.studentEditing(this.student, editedStudent, this.studentsList);
-      this.successfully = true;
+    this.SL.studentEditing(this.student, editedStudent, this.studentsList);
+    this.successfully = true;
 
     setTimeout(() => {
       this.activateEditing = false;
+      this.successfully = false;
+    }, 1000);
+  }
+
+  onSubmitAddForm(): void {
+    const controls = this.formModelAddingStudent.controls;
+
+    if (this.formModelAddingStudent.invalid) {
+      Object.keys(controls)
+        .forEach(controlName => controls[controlName].markAsTouched());
+      return;
+    }
+
+    const modelAdd = this.formModelAddingStudent.value;
+    const addStudent = {
+      lastName: modelAdd.fullName.lastName,
+      firstName: modelAdd.fullName.firstName,
+      patronymic: modelAdd.fullName.patronymic,
+      DOB: modelAdd.DOB,
+      GPA: modelAdd.GPA,
+    };
+
+    console.log(addStudent);
+    console.log(this.studentsList);
+
+    this.SL.studentAdd(addStudent, this.studentsList);
+    this.successfully = true;
+
+    setTimeout(() => {
+      this.activateOfAdd = false;
       this.successfully = false;
     }, 1000);
   }

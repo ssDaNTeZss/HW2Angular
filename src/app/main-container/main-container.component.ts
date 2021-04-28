@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { SimpleService } from "../simple.service";
-import { StudentList } from "../student-list";
+import { Student, StudentList } from "../student-list";
 
 @Component({
   selector: "app-main-container",
@@ -15,7 +15,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
   needRed = true;
   spanFilter: string = "filter_3";
   filtrationAZ = true;
-  students = [];
+  students: any;
   SL = new StudentList();
   filtrationByLastname = false;
   filtrationByLastnameAZ = true;
@@ -30,7 +30,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.students = this.SL.returnNormalSL();
     this.subs = this.simpleService.STUDENTS$.subscribe((student) => {
       this.students = student;
@@ -112,7 +112,10 @@ export class MainContainerComponent implements OnInit, OnDestroy {
     this.filtrationByGPAAZ = true;
   }
 
-  addingStudent() {
-    this.simpleService.changeActivateOfAdd(!this.activateOfAdd);
+  addingStudent(): void {
+    this.activateOfAdd = !this.activateOfAdd;
+    this.simpleService.changeStudentsList(this.students);
+    this.simpleService.changeActivateOfAdd(this.activateOfAdd);
+
   }
 }
