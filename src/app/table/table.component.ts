@@ -87,5 +87,6 @@ export class TableComponent implements OnInit, OnDestroy {
 
     this.simpleService.changeActivateEditing(this.activateEditing);
     this.simpleService.changeStudent(student);
+    this.simpleService.changeStudentsList(this.students);
   }
 }

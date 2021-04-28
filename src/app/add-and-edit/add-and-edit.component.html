@@ -1,9 +1,9 @@
 <form novalidate class="edit-form"
-      *ngIf="this.activateEditing"
+  *ngIf="this.activateEditing"
       [formGroup]="formModelEditStudent"
       (ngSubmit)="onSubmitEditForm()"
 >
-  <p class="edit-form__header">Редактирование записи</p>
+  <p class="edit-form__header">Редактирование записи <span class="span-successfully" *ngIf="successfully">Успешно!</span></p>
 
   <div formGroupName="fullName">
     <div class="col-w40">
@@ -17,7 +17,7 @@
         />
         <label for="lastName" class="form__label">Фамилия</label>
       </div>
-      <span class="error-block">Допустимый диапозон цифр от 2 до 5</span>
+<!--      <span class="error-block">Неверный формат (использованы недопустимые символы)</span>-->
     </div>
     <div class="col-w30">
       <div class="form__group field">
@@ -28,6 +28,7 @@
                formControlName="firstName"/>
         <label for="firstName" class="form__label">Имя</label>
       </div>
+<!--      <span class="error-block">Неверный формат (использованы недопустимые символы)</span>-->
     </div>
     <div class="col-w30">
       <div class="form__group field">
@@ -38,6 +39,7 @@
                formControlName="patronymic"/>
         <label for="patronymic" class="form__label">Отчество</label>
       </div>
+<!--      <span class="error-block">Неверный формат (использованы недопустимые символы)</span>-->
     </div>
   </div>
 
@@ -51,6 +53,9 @@
       />
       <label for="DOB" class="form__label">Дата рождения</label>
     </div>
+    <span class="error-block" *ngIf="isControlInvalid('DOB')">
+      Неверный формат (возраст не менее 10 лет)
+    </span>
   </div>
   <div class="col-w30">
     <div class="form__group field">
@@ -62,10 +67,13 @@
       />
       <label for="GPA" class="form__label">Средний балл</label>
     </div>
+    <span class="error-block" *ngIf="isControlInvalid('GPA')">
+      Неверный формат (допустимый диапозон цифр от 2 до 5)
+    </span>
   </div>
   <div class="col-w40" style="padding-left: 20px">
     <div class="multiple-buttons">
-      <button class="button-gray" type="submit">Изменить</button>
+      <button class="button-gray" type="submit" [disabled]="formModelEditStudent.invalid">Изменить</button>
     </div>
   </div>
 </form>

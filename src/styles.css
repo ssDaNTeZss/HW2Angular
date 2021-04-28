@@ -1164,6 +1164,7 @@ input.ng-invalid {
   transition: all 500ms ease-in-out;
 }
 
+
 .edit-form__header {
   font-weight: bold;
   font-size: 20pt;
@@ -1244,4 +1245,10 @@ input.ng-invalid {
 /* reset input */
 .form__field:required, .form__field:invalid {
   box-shadow: none;
+}
+
+.span-successfully {
+  font-size: 24pt;
+  transition-duration: 0.4s;
+  color: #2c7f1e;
 }

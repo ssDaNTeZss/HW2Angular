@@ -23,6 +23,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
   filtrationByDOBAZ = true;
   filtrationByGPA = false;
   filtrationByGPAAZ = true;
+  activateOfAdd = false;
 
   constructor(
     private readonly simpleService: SimpleService,
@@ -101,6 +102,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
   fullList(): void {
     const SL = new StudentList();
     this.students = SL.returnNormalSL();
+    this.simpleService.changeActivateEditing(false);
 
     this.filtrationByLastname = false;
     this.filtrationByLastnameAZ = true;
@@ -108,5 +110,9 @@ export class MainContainerComponent implements OnInit, OnDestroy {
     this.filtrationByDOBAZ = true;
     this.filtrationByGPA = false;
     this.filtrationByGPAAZ = true;
+  }
+
+  addingStudent() {
+    this.simpleService.changeActivateOfAdd(!this.activateOfAdd);
   }
 }

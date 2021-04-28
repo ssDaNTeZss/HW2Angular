@@ -130,6 +130,18 @@ export class StudentList<T> {
     return list;
   }
 
+  public studentEditing(entry: Student, editedEntry: Student, list: Student[]): Student[] {
+    console.log(list[list.indexOf(entry)]);
+    if (entry !== editedEntry) {
+      list[list.indexOf(entry)].lastName = editedEntry.lastName;
+      list[list.indexOf(entry)].firstName = editedEntry.firstName;
+      list[list.indexOf(entry)].patronymic = editedEntry.patronymic;
+      list[list.indexOf(entry)].DOB = editedEntry.DOB;
+      list[list.indexOf(entry)].GPA = editedEntry.GPA;
+    }
+
+    return list;
+  }
 
   public filterByDate(typeData: "dateFrom" | "dateTo" | "dateDouble" = "dateFrom", dateArr: string[]): Student[] {
     let newStudents = [];

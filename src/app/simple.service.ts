@@ -7,6 +7,7 @@ import { Subject } from "rxjs";
 export class SimpleService {
   public activePopup$ = new Subject<boolean>();
   public activateEditing$ = new Subject<boolean>();
+  public activateOfAdd$ = new Subject<boolean>();
 
   public student$ = new Subject<[]>();
   public studentsList$ = new Subject<[]>();
@@ -29,6 +30,10 @@ export class SimpleService {
 
   public changeActivateEditing(activateEditing: boolean) {
     this.activateEditing$.next(activateEditing);
+  }
+
+  public changeActivateOfAdd(activateOfAdd: boolean) {
+    this.activateOfAdd$.next(activateOfAdd);
   }
 
   public changeStudent(student: []) {
