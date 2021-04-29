@@ -1,9 +1,9 @@
 <form novalidate class="edit-form"
-      *ngIf="this.activateEditing"
-      [formGroup]="formModelEditStudent"
-      (ngSubmit)="onSubmitEditForm()"
+      *ngIf="this.activateForm"
+      [formGroup]="formModelStudent"
+      (ngSubmit)="onSubmitForm()"
 >
-  <p class="edit-form__header">Редактирование записи
+  <p class="edit-form__header">{{titleForm}}
     <span class="span-successfully" *ngIf="successfully">Успешно!</span>
   </p>
 
@@ -54,7 +54,7 @@
     </div>
   </div>
 
-  <div class="col-w30" style="padding: 0px">
+  <div class="col-w30 padding0">
     <div class="form__group field">
       <input type="date"
              class="form__field"
@@ -88,114 +88,11 @@
       </p>
     </div>
   </div>
-  <div class="col-w40" style="padding-left: 20px">
+  <div class="col-w40 p-l-20">
     <div class="multiple-buttons">
-      <button class="button-gray"
-              style="margin-top: 27px"
-              type="submit" [disabled]="formModelEditStudent.invalid">Изменить
+      <button class="button-gray form-button"
+              type="submit" [disabled]="formModelStudent.invalid">{{titleButton}}
       </button>
     </div>
   </div>
 </form>
-
-
-<form novalidate class="edit-form"
-      *ngIf="this.activateOfAdd"
-      [formGroup]="formModelAddingStudent"
-      (ngSubmit)="onSubmitAddForm()"
->
-  <p class="edit-form__header">Добавления новой записи
-    <span class="span-successfully" *ngIf="successfully">Успешно!</span>
-  </p>
-
-  <div formGroupName="fullName">
-    <div class="col-w40">
-      <div class="form__group field">
-        <input type="input"
-               class="form__field"
-               placeholder="Фамилия"
-               id="lastNameAdd"
-               formControlName="lastName"
-               autofocus
-        />
-        <label for="lastName" class="form__label">Фамилия</label>
-      </div>
-      <div *ngIf="_fullNameAdd.invalid && (_fullNameAdd.touched || _fullNameAdd.dirty)">
-      <span class="error-block"
-            *ngIf="isControlInvalidFormAdd('fullName')">Фамилия, имя, отчесво не должны совпадать</span>
-      </div>
-    </div>
-    <div class="col-w30">
-      <div class="form__group field">
-        <input type="input"
-               class="form__field"
-               placeholder="Имя"
-               id="firstNameAdd"
-               formControlName="firstName"/>
-        <label for="firstName" class="form__label">Имя</label>
-      </div>
-      <div *ngIf="_fullNameAdd.invalid && (_fullNameAdd.touched || _fullNameAdd.dirty)">
-      <span class="error-block"
-            *ngIf="isControlInvalidFormAdd('fullName')">Фамилия, имя, отчесво не должны совпадать</span>
-      </div>
-    </div>
-    <div class="col-w30">
-      <div class="form__group field">
-        <input type="input"
-               class="form__field"
-               placeholder="Отчество"
-               id='patronymicAdd'
-               formControlName="patronymic"/>
-        <label for="patronymic" class="form__label">Отчество</label>
-      </div>
-      <div *ngIf="_fullNameAdd.invalid && (_fullNameAdd.touched || _fullNameAdd.dirty)">
-      <span class="error-block"
-            *ngIf="isControlInvalidFormAdd('fullName')">Фамилия, имя, отчесво не должны совпадать</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-w30" style="padding: 0px">
-    <div class="form__group field">
-      <input type="date"
-             class="form__field"
-             placeholder="Дата рождения"
-             id="DOBadd"
-             formControlName="DOB"
-      />
-      <label for="DOB" class="form__label">Дата рождения</label>
-    </div>
-    <div *ngIf="_DOBadd.invalid && (_DOBadd.touched || _DOBadd.dirty)">
-      <p class="error-block" *ngIf="_DOBadd.errors?.required">Обязательное поле</p>
-      <p class="error-block" *ngIf="isControlInvalidFormAdd('DOB')">
-        Неверный формат (возраст менее 10 лет)
-      </p>
-    </div>
-  </div>
-  <div class="col-w30">
-    <div class="form__group field">
-      <input type="number"
-             class="form__field"
-             placeholder="Средний балл"
-             id="GPAadd"
-             formControlName="GPA"
-      />
-      <label for="GPA" class="form__label">Средний балл</label>
-    </div>
-    <div *ngIf="_GPAadd.invalid && (_GPAadd.touched || _GPAadd.dirty)">
-      <p class="error-block" *ngIf=" _GPAadd.errors?.required">Обязательное поле</p>
-      <p class="error-block" *ngIf="isControlInvalidFormAdd('GPA')">
-        Неверный формат (допустимый диапозон цифр от 2 до 5)
-      </p>
-    </div>
-  </div>
-  <div class="col-w40" style="padding-left: 20px">
-    <div class="multiple-buttons">
-      <button class="button-gray"
-              style="margin-top: 27px"
-              type="submit" [disabled]="formModelAddingStudent.invalid">Добавить
-      </button>
-    </div>
-  </div>
-</form>
-

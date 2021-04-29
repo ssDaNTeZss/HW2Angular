@@ -30,8 +30,8 @@ export class AsideLeftComponent implements OnInit, OnDestroy {
       this.simpleService.changeSearch(Form.value.search.split(" "));
     }
 
-    let dateArr: string[] = [];
-    let GPAArr: number[] = [];
+    const dateArr: string[] = [];
+    const GPAArr: number[] = [];
 
     if (Form.value.dateFrom && Form.value.dateTo) {
       dateArr.push(Form.value.dateFrom);

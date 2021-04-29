@@ -25,51 +25,51 @@ export class SimpleService {
   public STUDENTS$ = new Subject<Student[]>();
 
 
-  public changeActivePopup(activePopup: boolean) {
+  public changeActivePopup(activePopup: boolean): void {
     this.activePopup$.next(activePopup);
   }
 
-  public changeActivateEditing(activateEditing: boolean) {
+  public changeActivateEditing(activateEditing: boolean): void {
     this.activateEditing$.next(activateEditing);
   }
 
-  public changeActivateOfAdd(activateOfAdd: boolean) {
+  public changeActivateOfAdd(activateOfAdd: boolean): void {
     this.activateOfAdd$.next(activateOfAdd);
   }
 
-  public changeStudent(student: Student) {
+  public changeStudent(student: Student): void {
     this.student$.next(student);
   }
 
-  public changeStudentsList(studentsList: Student[]) {
+  public changeStudentsList(studentsList: Student[]): void {
     this.studentsList$.next(studentsList);
   }
 
-  public changeSearch(search: string[]) {
+  public changeSearch(search: string[]): void {
     this.search$.next(search);
   }
 
-  public changeData(dateArr: string[]) {
+  public changeData(dateArr: string[]): void {
     this.dateArr$.next(dateArr);
   }
 
-  public changeDataType(dateType: "dateFrom" | "dateTo" | "dateDouble") {
+  public changeDataType(dateType: "dateFrom" | "dateTo" | "dateDouble"): void {
     this.dateType$.next(dateType);
   }
 
-  public changeGPA(GPAArr: number[]) {
+  public changeGPA(GPAArr: number[]): void {
     this.GPAArr$.next(GPAArr);
   }
 
-  public changeGPAType(GPAType: "GPAFrom" | "GPATo" | "GPADouble") {
+  public changeGPAType(GPAType: "GPAFrom" | "GPATo" | "GPADouble"): void {
     this.GPAType$.next(GPAType);
   }
 
-  public resetTable(resetTable: boolean) {
+  public resetTable(resetTable: boolean): void {
     this.resetTable$.next(resetTable);
   }
 
-  public transferStudents(students: Student[]) {
+  public transferStudents(students: Student[]): void {
     this.STUDENTS$.next(students);
   }
 }

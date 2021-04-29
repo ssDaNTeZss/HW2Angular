@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
 import { Observable, Subscription } from "rxjs";
 import { dateValidator } from "../../validators/date.validator";
-import { fullNameValidator } from "../../validators/fullName.validator";
+import { fullNameValidator } from "../../validators/full-name.validator";
 import { SimpleService } from "../simple.service";
 import { Student, StudentList } from "../student-list";
 
@@ -15,14 +15,19 @@ export class AddAndEditComponent implements OnInit, OnDestroy {
   private subs: Subscription;
 
   activateEditing: boolean;
+  activateForm: boolean;
   activateOfAdd: boolean;
   SL = new StudentList();
   student: Student;
   studentsList: Student[];
   successfully = false;
 
-  formModelEditStudent: FormGroup;
-  formModelAddingStudent: FormGroup;
+  titleForm: string;
+  titleButton: string;
+
+  fullName: AbstractControl;
+
+  formModelStudent: FormGroup;
 
   constructor(
     private readonly simpleService: SimpleService,
@@ -30,36 +35,7 @@ export class AddAndEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.formModelEditStudent = new FormGroup({
-      fullName: new FormGroup({
-        lastName: new FormControl("",
-          [
-            Validators.required,
-            Validators.pattern(/^([А-Я]{1}[а-яё\-]{1,23}|[A-Z]{1}[a-z\-]{1,23})?$/),
-          ],
-        ),
-        firstName: new FormControl("",
-          [
-            Validators.required,
-            Validators.pattern(/^([А-Я]{1}[а-яё\-]{1,23}|[A-Z]{1}[a-z\-]{1,23})?$/),
-          ],
-        ),
-        patronymic: new FormControl("")
-      }),
-      DOB: new FormControl("", [
-          Validators.required,
-          dateValidator(),
-        ],
-      ),
-      GPA: new FormControl("",
-        [
-          Validators.required,
-          Validators.pattern(/^([2-5]|[2-5]{1}[\.\,]{1}[0-9]{1,2})?$/),
-        ],
-      )
-    });
-
-    this.formModelAddingStudent = new FormGroup({
+    this.formModelStudent = new FormGroup({
       fullName: new FormGroup({
         lastName: new FormControl("",
           [
@@ -88,27 +64,44 @@ export class AddAndEditComponent implements OnInit, OnDestroy {
       )
     });
 
-    this.subs = this.simpleService.activateEditing$.subscribe((activateEditing) => this.activateEditing = activateEditing);
+    this.subs = this.simpleService.activateEditing$.subscribe((activateEditing) => {
+      this.formModelStudent.reset();
+      this.activateForm = activateEditing;
+      this.activateEditing = activateEditing;
+      this.titleForm = "Редактирование записи";
+      this.titleButton = "Изменить";
+    });
+
     this.subs = this.simpleService.studentsList$.subscribe((studentsList) => this.studentsList = studentsList);
 
-    this.subs = this.simpleService.activateOfAdd$.subscribe((activateOfAdd) => this.activateOfAdd = activateOfAdd);
+    this.subs = this.simpleService.activateOfAdd$.subscribe((activateOfAdd) => {
+      this.formModelStudent.reset();
+      this.activateForm = activateOfAdd;
+      this.activateOfAdd = activateOfAdd;
+      this.titleForm = "Добавления новой записи";
+      this.titleButton = "Добавить";
+    });
 
     this.subs = this.simpleService.student$.subscribe((student) => {
       this.student = student;
 
-      this.formModelEditStudent.get("fullName").patchValue({
+      this.formModelStudent.get("fullName").patchValue({
         lastName: this.student.lastName,
         firstName: this.student.firstName,
         patronymic: this.student.patronymic
       });
-      this.formModelEditStudent.patchValue({
+
+      this.formModelStudent.patchValue({
         DOB: this.student.DOB,
         GPA: this.student.GPA
       });
     });
 
     this.subs = this.simpleService.resetTable$.subscribe(() => {
+      this.formModelStudent.reset();
       this.activateEditing = false;
+      this.activateOfAdd = false;
+      this.activateForm = false;
     });
   }
 
@@ -116,95 +109,134 @@ export class AddAndEditComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
+
   isControlInvalid(controlName: string): boolean {
-    const control = this.formModelEditStudent.controls[controlName];
+    const control = this.formModelStudent.controls[controlName];
     const result = control.invalid && control.touched;
 
     return result;
-  }
-
-  isControlInvalidFormAdd(controlName: string): boolean {
-    const control = this.formModelAddingStudent.controls[controlName];
-    const result = control.invalid && control.touched;
-
-    return result;
-  }
-
-  get _DOB(): AbstractControl {
-    return this.formModelEditStudent.get("DOB");
-  }
-
-  get _GPA(): AbstractControl {
-    return this.formModelEditStudent.get("GPA");
-  }
-
-  get _DOBadd(): AbstractControl {
-    return this.formModelAddingStudent.get("DOB");
-  }
-
-  get _GPAadd(): AbstractControl {
-    return this.formModelAddingStudent.get("GPA");
   }
 
   get _fullName(): AbstractControl {
-    return this.formModelEditStudent.get("fullName");
+    return this.formModelStudent.get("fullName");
   }
 
-  get _fullNameAdd(): AbstractControl {
-    return this.formModelAddingStudent.get("fullName");
+  get _DOB(): AbstractControl {
+    return this.formModelStudent.get("DOB");
   }
 
-  onSubmitEditForm(): void {
-    const controls = this.formModelEditStudent.controls;
+  get _GPA(): AbstractControl {
+    return this.formModelStudent.get("GPA");
+  }
 
-    if (this.formModelEditStudent.invalid) {
-      Object.keys(controls)
-        .forEach(controlName => controls[controlName].markAsTouched());
-      return;
+  // onSubmitEditForm(): void {
+  //   const controls = this.formModelEditStudent.controls;
+  //
+  //   if (this.formModelEditStudent.invalid) {
+  //     Object.keys(controls)
+  //       .forEach(controlName => controls[controlName].markAsTouched());
+  //     return;
+  //   }
+  //
+  //   const FMES = this.formModelEditStudent.value;
+  //   const editedStudent = {
+  //     lastName: FMES.fullName.lastName,
+  //     firstName: FMES.fullName.firstName,
+  //     patronymic: FMES.fullName.patronymic,
+  //     DOB: FMES.DOB,
+  //     GPA: FMES.GPA,
+  //   };
+  //
+  //   this.SL.studentEditing(this.student, editedStudent, this.studentsList);
+  //   this.successfully = true;
+  //
+  //   setTimeout(() => {
+  //     this.activateEditing = false;
+  //     this.successfully = false;
+  //   }, 800);
+  // }
+  //
+  // onSubmitAddForm(): void {
+  //   const controls = this.formModelAddingStudent.controls;
+  //
+  //   if (this.formModelAddingStudent.invalid) {
+  //     Object.keys(controls)
+  //       .forEach(controlName => controls[controlName].markAsTouched());
+  //     return;
+  //   }
+  //
+  //   const modelAdd = this.formModelAddingStudent.value;
+  //   const addStudent = {
+  //     lastName: modelAdd.fullName.lastName,
+  //     firstName: modelAdd.fullName.firstName,
+  //     patronymic: modelAdd.fullName.patronymic,
+  //     DOB: modelAdd.DOB,
+  //     GPA: modelAdd.GPA,
+  //   };
+  //
+  //   this.SL.studentAdd(addStudent, this.studentsList);
+  //   this.successfully = true;
+  //
+  //   setTimeout(() => {
+  //     this.activateOfAdd = false;
+  //     this.successfully = false;
+  //   }, 800);
+  // }
+
+  onSubmitForm(): void {
+    if (this.activateEditing) {
+      const controls = this.formModelStudent.controls;
+
+      if (this.formModelStudent.invalid) {
+        Object.keys(controls)
+          .forEach(controlName => controls[controlName].markAsTouched());
+        return;
+      }
+
+      const FMES = this.formModelStudent.value;
+      const editedStudent = {
+        lastName: FMES.fullName.lastName,
+        firstName: FMES.fullName.firstName,
+        patronymic: FMES.fullName.patronymic,
+        DOB: FMES.DOB,
+        GPA: FMES.GPA,
+      };
+
+      this.SL.studentEditing(this.student, editedStudent, this.studentsList);
+      this.successfully = true;
     }
 
-    const FMES = this.formModelEditStudent.value;
-    const editedStudent = {
-      lastName: FMES.fullName.lastName,
-      firstName: FMES.fullName.firstName,
-      patronymic: FMES.fullName.patronymic,
-      DOB: FMES.DOB,
-      GPA: FMES.GPA,
-    };
+    if (this.activateOfAdd) {
+      const controls = this.formModelStudent.controls;
 
-    this.SL.studentEditing(this.student, editedStudent, this.studentsList);
-    this.successfully = true;
+      if (this.formModelStudent.invalid) {
+        Object.keys(controls)
+          .forEach(controlName => controls[controlName].markAsTouched());
+        return;
+      }
 
-    setTimeout(() => {
-      this.activateEditing = false;
-      this.successfully = false;
-    }, 800);
-  }
+      const modelAdd = this.formModelStudent.value;
+      const addStudent = {
+        lastName: modelAdd.fullName.lastName,
+        firstName: modelAdd.fullName.firstName,
+        patronymic: modelAdd.fullName.patronymic,
+        DOB: modelAdd.DOB,
+        GPA: modelAdd.GPA,
+      };
 
-  onSubmitAddForm(): void {
-    const controls = this.formModelAddingStudent.controls;
-
-    if (this.formModelAddingStudent.invalid) {
-      Object.keys(controls)
-        .forEach(controlName => controls[controlName].markAsTouched());
-      return;
+      this.SL.studentAdd(addStudent, this.studentsList);
+      this.successfully = true;
     }
-
-    const modelAdd = this.formModelAddingStudent.value;
-    const addStudent = {
-      lastName: modelAdd.fullName.lastName,
-      firstName: modelAdd.fullName.firstName,
-      patronymic: modelAdd.fullName.patronymic,
-      DOB: modelAdd.DOB,
-      GPA: modelAdd.GPA,
-    };
-
-    this.SL.studentAdd(addStudent, this.studentsList);
-    this.successfully = true;
 
     setTimeout(() => {
       this.activateOfAdd = false;
+      this.activateEditing = false;
       this.successfully = false;
+
+      this.activateForm = false;
+
+      // this.formModelStudent.reset();
     }, 800);
+
   }
 }

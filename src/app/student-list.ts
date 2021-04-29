@@ -51,7 +51,7 @@ export class StudentList<T> {
   public sorting(fieldName: "lastName" | "DOB" | "GPA" = "lastName", type: "AtoZ" | "ZtoA" = "AtoZ", students: Student[]): Student[] {
     if (fieldName === "lastName") {
       if (type === "AtoZ") {
-        students.sort(function(a, b) {
+        students.sort(function(a: Student, b: Student): number {
           if (a.lastName > b.lastName) {
             return 1;
           }
@@ -61,7 +61,7 @@ export class StudentList<T> {
           return 0;
         });
       } else {
-        students.sort(function(a, b) {
+        students.sort(function(a: Student, b: Student): number {
           if (a.lastName < b.lastName) {
             return 1;
           }
@@ -76,7 +76,7 @@ export class StudentList<T> {
 
     if (fieldName === "DOB") {
       if (type === "AtoZ") {
-        students.sort(function(a, b) {
+        students.sort(function(a: Student, b: Student): number {
           if (a.DOB > b.DOB) {
             return 1;
           }
@@ -86,7 +86,7 @@ export class StudentList<T> {
           return 0;
         });
       } else {
-        students.sort(function(a, b) {
+        students.sort(function(a: Student, b: Student): number {
           if (a.DOB < b.DOB) {
             return 1;
           }
@@ -101,7 +101,7 @@ export class StudentList<T> {
 
     if (fieldName === "GPA") {
       if (type === "AtoZ") {
-        students.sort(function(a, b) {
+        students.sort(function(a: Student, b: Student): number {
           if (a.GPA > b.GPA) {
             return 1;
           }
@@ -111,7 +111,7 @@ export class StudentList<T> {
           return 0;
         });
       } else {
-        students.sort(function(a, b) {
+        students.sort(function(a: Student, b: Student): number {
           if (a.GPA < b.GPA) {
             return 1;
           }
@@ -152,7 +152,7 @@ export class StudentList<T> {
   }
 
   public filterByDate(typeData: "dateFrom" | "dateTo" | "dateDouble" = "dateFrom", dateArr: string[]): Student[] {
-    let newStudents = [];
+    const newStudents = [];
 
     if (typeData === "dateFrom") {
       for (const student of this.students) {
@@ -183,7 +183,7 @@ export class StudentList<T> {
 
   public filterByGPA(typeGPA: "GPAFrom" | "GPATo" | "GPADouble" = "GPAFrom", GPAArr: number[]): Student[] {
 
-    let newStudents = [];
+    const newStudents = [];
 
     if (typeGPA === "GPAFrom") {
       for (const student of this.students) {
@@ -215,7 +215,7 @@ export class StudentList<T> {
   public filterByDateAndGPA(typeData: "dateFrom" | "dateTo" | "dateDouble" = "dateFrom", dateArr: string[],
                             typeGPA: "GPAFrom" | "GPATo" | "GPADouble" = "GPAFrom", GPAArr: number[]): Student[] {
 
-    let newStudentsByDate = [],
+    const newStudentsByDate = [],
       newStudentsByDateAndGPA = [];
 
     if (typeData === "dateFrom") {
