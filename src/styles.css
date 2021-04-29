@@ -23,6 +23,10 @@ main {
   display: block;
 }
 
+p {
+  margin: 0;
+}
+
 .navbar {
   position: fixed;
   top: 0;

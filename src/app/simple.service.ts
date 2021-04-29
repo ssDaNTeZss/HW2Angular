@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
+import { Student } from "./student-list";
 
 @Injectable({
   providedIn: "root"
@@ -9,8 +10,8 @@ export class SimpleService {
   public activateEditing$ = new Subject<boolean>();
   public activateOfAdd$ = new Subject<boolean>();
 
-  public student$ = new Subject<[]>();
-  public studentsList$ = new Subject<[]>();
+  public student$ = new Subject<Student>();
+  public studentsList$ = new Subject<Student[]>();
 
   public search$ = new Subject<string[]>();
 
@@ -21,7 +22,7 @@ export class SimpleService {
 
   public resetTable$ = new Subject<boolean>();
 
-  public STUDENTS$ = new Subject<[]>();
+  public STUDENTS$ = new Subject<Student[]>();
 
 
   public changeActivePopup(activePopup: boolean) {
@@ -36,11 +37,11 @@ export class SimpleService {
     this.activateOfAdd$.next(activateOfAdd);
   }
 
-  public changeStudent(student: []) {
+  public changeStudent(student: Student) {
     this.student$.next(student);
   }
 
-  public changeStudentsList(studentsList: []) {
+  public changeStudentsList(studentsList: Student[]) {
     this.studentsList$.next(studentsList);
   }
 
@@ -68,7 +69,7 @@ export class SimpleService {
     this.resetTable$.next(resetTable);
   }
 
-  public transferStudents(students: []) {
+  public transferStudents(students: Student[]) {
     this.STUDENTS$.next(students);
   }
 }

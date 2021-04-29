@@ -1,9 +1,11 @@
 <form novalidate class="edit-form"
-  *ngIf="this.activateEditing"
+      *ngIf="this.activateEditing"
       [formGroup]="formModelEditStudent"
       (ngSubmit)="onSubmitEditForm()"
 >
-  <p class="edit-form__header">Редактирование записи <span class="span-successfully" *ngIf="successfully">Успешно!</span></p>
+  <p class="edit-form__header">Редактирование записи
+    <span class="span-successfully" *ngIf="successfully">Успешно!</span>
+  </p>
 
   <div formGroupName="fullName">
     <div class="col-w40">
@@ -17,7 +19,10 @@
         />
         <label for="lastName" class="form__label">Фамилия</label>
       </div>
-<!--      <span class="error-block">Неверный формат (использованы недопустимые символы)</span>-->
+      <div *ngIf="_fullName.invalid && (_fullName.touched || _fullName.dirty)">
+      <span class="error-block"
+            *ngIf="isControlInvalid('fullName')">Фамилия, имя, отчесво не должны совпадать</span>
+      </div>
     </div>
     <div class="col-w30">
       <div class="form__group field">
@@ -28,7 +33,10 @@
                formControlName="firstName"/>
         <label for="firstName" class="form__label">Имя</label>
       </div>
-<!--      <span class="error-block">Неверный формат (использованы недопустимые символы)</span>-->
+      <div *ngIf="_fullName.invalid && (_fullName.touched || _fullName.dirty)">
+      <span class="error-block"
+            *ngIf="isControlInvalid('fullName')">Фамилия, имя, отчесво не должны совпадать</span>
+      </div>
     </div>
     <div class="col-w30">
       <div class="form__group field">
@@ -39,7 +47,10 @@
                formControlName="patronymic"/>
         <label for="patronymic" class="form__label">Отчество</label>
       </div>
-<!--      <span class="error-block">Неверный формат (использованы недопустимые символы)</span>-->
+      <div *ngIf="_fullName.invalid && (_fullName.touched || _fullName.dirty)">
+      <span class="error-block"
+            *ngIf="isControlInvalid('fullName')">Фамилия, имя, отчесво не должны совпадать</span>
+      </div>
     </div>
   </div>
 
@@ -53,9 +64,12 @@
       />
       <label for="DOB" class="form__label">Дата рождения</label>
     </div>
-    <span class="error-block" *ngIf="isControlInvalid('DOB')">
-      Неверный формат (возраст не менее 10 лет)
-    </span>
+    <div *ngIf="_DOB.invalid && (_DOB.touched || _DOB.dirty)">
+      <p class="error-block" *ngIf="_DOB.errors?.required">Обязательное поле</p>
+      <p class="error-block" *ngIf="isControlInvalid('DOB')">
+        Неверный формат (возраст менее 10 лет)
+      </p>
+    </div>
   </div>
   <div class="col-w30">
     <div class="form__group field">
@@ -67,15 +81,19 @@
       />
       <label for="GPA" class="form__label">Средний балл</label>
     </div>
-    <span class="error-block" *ngIf="isControlInvalid('GPA')">
-      Неверный формат (допустимый диапозон цифр от 2 до 5)
-    </span>
+    <div *ngIf="_GPA.invalid && (_GPA.touched || _GPA.dirty)">
+      <p class="error-block" *ngIf=" _GPA.errors?.required">Обязательное поле</p>
+      <p class="error-block" *ngIf="isControlInvalid('GPA')">
+        Неверный формат (допустимый диапозон цифр от 2 до 5)
+      </p>
+    </div>
   </div>
   <div class="col-w40" style="padding-left: 20px">
     <div class="multiple-buttons">
       <button class="button-gray"
               style="margin-top: 27px"
-              type="submit" [disabled]="formModelEditStudent.invalid">Изменить</button>
+              type="submit" [disabled]="formModelEditStudent.invalid">Изменить
+      </button>
     </div>
   </div>
 </form>
@@ -86,7 +104,9 @@
       [formGroup]="formModelAddingStudent"
       (ngSubmit)="onSubmitAddForm()"
 >
-  <p class="edit-form__header">Добавления новой записи <span class="span-successfully" *ngIf="successfully">Успешно!</span></p>
+  <p class="edit-form__header">Добавления новой записи
+    <span class="span-successfully" *ngIf="successfully">Успешно!</span>
+  </p>
 
   <div formGroupName="fullName">
     <div class="col-w40">
@@ -100,7 +120,10 @@
         />
         <label for="lastName" class="form__label">Фамилия</label>
       </div>
-      <!--      <span class="error-block">Неверный формат (использованы недопустимые символы)</span>-->
+      <div *ngIf="_fullNameAdd.invalid && (_fullNameAdd.touched || _fullNameAdd.dirty)">
+      <span class="error-block"
+            *ngIf="isControlInvalidFormAdd('fullName')">Фамилия, имя, отчесво не должны совпадать</span>
+      </div>
     </div>
     <div class="col-w30">
       <div class="form__group field">
@@ -111,7 +134,10 @@
                formControlName="firstName"/>
         <label for="firstName" class="form__label">Имя</label>
       </div>
-      <!--      <span class="error-block">Неверный формат (использованы недопустимые символы)</span>-->
+      <div *ngIf="_fullNameAdd.invalid && (_fullNameAdd.touched || _fullNameAdd.dirty)">
+      <span class="error-block"
+            *ngIf="isControlInvalidFormAdd('fullName')">Фамилия, имя, отчесво не должны совпадать</span>
+      </div>
     </div>
     <div class="col-w30">
       <div class="form__group field">
@@ -122,7 +148,10 @@
                formControlName="patronymic"/>
         <label for="patronymic" class="form__label">Отчество</label>
       </div>
-      <!--      <span class="error-block">Неверный формат (использованы недопустимые символы)</span>-->
+      <div *ngIf="_fullNameAdd.invalid && (_fullNameAdd.touched || _fullNameAdd.dirty)">
+      <span class="error-block"
+            *ngIf="isControlInvalidFormAdd('fullName')">Фамилия, имя, отчесво не должны совпадать</span>
+      </div>
     </div>
   </div>
 
@@ -136,9 +165,12 @@
       />
       <label for="DOB" class="form__label">Дата рождения</label>
     </div>
-<!--    <span class="error-block" *ngIf="isControlInvalid('DOB')">-->
-<!--      Неверный формат (возраст не менее 10 лет)-->
-<!--    </span>-->
+    <div *ngIf="_DOBadd.invalid && (_DOBadd.touched || _DOBadd.dirty)">
+      <p class="error-block" *ngIf="_DOBadd.errors?.required">Обязательное поле</p>
+      <p class="error-block" *ngIf="isControlInvalidFormAdd('DOB')">
+        Неверный формат (возраст менее 10 лет)
+      </p>
+    </div>
   </div>
   <div class="col-w30">
     <div class="form__group field">
@@ -150,15 +182,19 @@
       />
       <label for="GPA" class="form__label">Средний балл</label>
     </div>
-<!--    <span class="error-block" *ngIf="isControlInvalid('GPA')">-->
-<!--      Неверный формат (допустимый диапозон цифр от 2 до 5)-->
-<!--    </span>-->
+    <div *ngIf="_GPAadd.invalid && (_GPAadd.touched || _GPAadd.dirty)">
+      <p class="error-block" *ngIf=" _GPAadd.errors?.required">Обязательное поле</p>
+      <p class="error-block" *ngIf="isControlInvalidFormAdd('GPA')">
+        Неверный формат (допустимый диапозон цифр от 2 до 5)
+      </p>
+    </div>
   </div>
   <div class="col-w40" style="padding-left: 20px">
     <div class="multiple-buttons">
       <button class="button-gray"
               style="margin-top: 27px"
-              type="submit" [disabled]="formModelAddingStudent.invalid">Добавить</button>
+              type="submit" [disabled]="formModelAddingStudent.invalid">Добавить
+      </button>
     </div>
   </div>
 </form>

@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { SimpleService } from "../simple.service";
-import { StudentList } from "../student-list";
+import { Student, StudentList } from "../student-list";
 
 @Component({
   selector: "app-table",
@@ -12,7 +12,7 @@ export class TableComponent implements OnInit, OnDestroy {
   private subs: Subscription;
 
   @Input() needRed?: boolean;
-  @Input() students?: any;
+  @Input() students?: Student[];
   @Input() filtrationAZ?: boolean;
 
   SL = new StudentList();
@@ -31,7 +31,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subs = this.simpleService.resetTable$.subscribe((resetTable) => {
+    this.subs = this.simpleService.resetTable$.subscribe(() => {
         this.warningLog = false;
         this.students = this.SL.returnNormalSL();
     });
@@ -64,7 +64,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   showError(): void {
-    if (!this.students.lenght) {
+    if (!this.students.length) {
       this.warningLog = true;
     }
   }
@@ -73,7 +73,7 @@ export class TableComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
-  onDeletion(entry: []) {
+  onDeletion(entry: Student): void {
     this.deletionStudent = entry;
     this.activePopup = !this.activePopup;
 
@@ -82,8 +82,10 @@ export class TableComponent implements OnInit, OnDestroy {
     this.simpleService.changeStudentsList(this.students);
   }
 
-  onEditing(student: []): void {
+  onEditing(student: Student): void {
     this.activateEditing = true;
+
+    this.simpleService.changeActivateOfAdd(false);
 
     this.simpleService.changeActivateEditing(this.activateEditing);
     this.simpleService.changeStudent(student);

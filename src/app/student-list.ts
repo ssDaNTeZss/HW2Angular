@@ -135,7 +135,6 @@ export class StudentList<T> {
   }
 
   public studentEditing(entry: Student, editedEntry: Student, list: Student[]): Student[] {
-    console.log(list[list.indexOf(entry)]);
     if (entry !== editedEntry) {
       list[list.indexOf(entry)].lastName = editedEntry.lastName;
       list[list.indexOf(entry)].firstName = editedEntry.firstName;
@@ -148,9 +147,7 @@ export class StudentList<T> {
   }
 
   public studentAdd(entry: Student, list: Student[]): Student[] {
-    // const STUDENT = new Student(entry);
     list.push(entry);
-    console.log(list);
     return list;
   }
 

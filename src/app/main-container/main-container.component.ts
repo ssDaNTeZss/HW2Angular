@@ -15,7 +15,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
   needRed = true;
   spanFilter: string = "filter_3";
   filtrationAZ = true;
-  students: any;
+  students: Student[];
   SL = new StudentList();
   filtrationByLastname = false;
   filtrationByLastnameAZ = true;
@@ -24,6 +24,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
   filtrationByGPA = false;
   filtrationByGPAAZ = true;
   activateOfAdd = false;
+  allEntries = true;
 
   constructor(
     private readonly simpleService: SimpleService,
@@ -36,13 +37,12 @@ export class MainContainerComponent implements OnInit, OnDestroy {
       this.students = student;
     });
 
-    this.subs = this.simpleService.resetTable$.subscribe((resetTable) => this.fullList());
+    this.subs = this.simpleService.resetTable$.subscribe(() => this.fullList());
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
-
 
   illuminationOfCgrade(): void {
     if (this.spanFilter === "filter_3") {
@@ -59,6 +59,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
 
     this.filtrationByDOB = false;
     this.filtrationByGPA = false;
+    this.allEntries = false;
 
     if (this.filtrationByLastnameAZ) {
       this.students = this.SL.sorting("lastName", "AtoZ", this.students);
@@ -74,6 +75,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
 
     this.filtrationByLastname = false;
     this.filtrationByGPA = false;
+    this.allEntries = false;
 
     if (this.filtrationByDOBAZ) {
       this.students = this.SL.sorting("DOB", "AtoZ", this.students);
@@ -89,6 +91,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
 
     this.filtrationByLastname = false;
     this.filtrationByDOB = false;
+    this.allEntries = false;
 
     if (this.filtrationByGPAAZ) {
       this.students = this.SL.sorting("GPA", "AtoZ", this.students);
@@ -104,18 +107,23 @@ export class MainContainerComponent implements OnInit, OnDestroy {
     this.students = SL.returnNormalSL();
     this.simpleService.changeActivateEditing(false);
 
+    this.allEntries = true;
     this.filtrationByLastname = false;
     this.filtrationByLastnameAZ = true;
     this.filtrationByDOB = false;
     this.filtrationByDOBAZ = true;
     this.filtrationByGPA = false;
     this.filtrationByGPAAZ = true;
+
+    this.activateOfAdd = false;
+    this.simpleService.changeActivateOfAdd(this.activateOfAdd);
   }
 
   addingStudent(): void {
+    this.simpleService.changeActivateEditing(false);
+    this.allEntries = !this.allEntries;
     this.activateOfAdd = !this.activateOfAdd;
     this.simpleService.changeStudentsList(this.students);
     this.simpleService.changeActivateOfAdd(this.activateOfAdd);
-
   }
 }

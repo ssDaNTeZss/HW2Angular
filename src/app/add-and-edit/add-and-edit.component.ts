@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
 import { Observable, Subscription } from "rxjs";
 import { dateValidator } from "../../validators/date.validator";
+import { fullNameValidator } from "../../validators/fullName.validator";
 import { SimpleService } from "../simple.service";
-import { StudentList } from "../student-list";
+import { Student, StudentList } from "../student-list";
 
 @Component({
   selector: "app-add-and-edit",
@@ -16,8 +17,8 @@ export class AddAndEditComponent implements OnInit, OnDestroy {
   activateEditing: boolean;
   activateOfAdd: boolean;
   SL = new StudentList();
-  student: any = [];
-  studentsList: [];
+  student: Student;
+  studentsList: Student[];
   successfully = false;
 
   formModelEditStudent: FormGroup;
@@ -34,21 +35,21 @@ export class AddAndEditComponent implements OnInit, OnDestroy {
         lastName: new FormControl("",
           [
             Validators.required,
-            Validators.pattern(/^([А-Я]{1}[а-яё\-]{1,23}|[A-Z]{1}[a-z\-]{1,23})?$/)
-          ]
+            Validators.pattern(/^([А-Я]{1}[а-яё\-]{1,23}|[A-Z]{1}[a-z\-]{1,23})?$/),
+          ],
         ),
         firstName: new FormControl("",
           [
             Validators.required,
-            Validators.pattern(/^([А-Я]{1}[а-яё\-]{1,23}|[A-Z]{1}[a-z\-]{1,23})?$/)
-          ]
+            Validators.pattern(/^([А-Я]{1}[а-яё\-]{1,23}|[A-Z]{1}[a-z\-]{1,23})?$/),
+          ],
         ),
         patronymic: new FormControl("")
       }),
       DOB: new FormControl("", [
           Validators.required,
-          dateValidator()
-        ]
+          dateValidator(),
+        ],
       ),
       GPA: new FormControl("",
         [
@@ -63,27 +64,27 @@ export class AddAndEditComponent implements OnInit, OnDestroy {
         lastName: new FormControl("",
           [
             Validators.required,
-            Validators.pattern(/^([А-Я]{1}[а-яё\-]{1,23}|[A-Z]{1}[a-z\-]{1,23})?$/)
-          ]
+            Validators.pattern(/^([А-Я]{1}[а-яё\-]{1,23}|[A-Z]{1}[a-z\-]{1,23})?$/),
+          ],
         ),
         firstName: new FormControl("",
           [
             Validators.required,
-            Validators.pattern(/^([А-Я]{1}[а-яё\-]{1,23}|[A-Z]{1}[a-z\-]{1,23})?$/)
-          ]
+            Validators.pattern(/^([А-Я]{1}[а-яё\-]{1,23}|[A-Z]{1}[a-z\-]{1,23})?$/),
+          ],
         ),
         patronymic: new FormControl("")
-      }),
+      }, [fullNameValidator()]),
       DOB: new FormControl("", [
           Validators.required,
-          dateValidator()
-        ]
+          dateValidator(),
+        ],
       ),
       GPA: new FormControl("",
         [
           Validators.required,
-          Validators.pattern(/^([2-5]|[2-5]{1}[\.\,]{1}[0-9]{1,2})?$/)
-        ]
+          Validators.pattern(/^([2-5]|[2-5]{1}[\.\,]{1}[0-9]{1,2})?$/),
+        ],
       )
     });
 
@@ -106,7 +107,7 @@ export class AddAndEditComponent implements OnInit, OnDestroy {
       });
     });
 
-    this.subs = this.simpleService.resetTable$.subscribe((resetTable) => {
+    this.subs = this.simpleService.resetTable$.subscribe(() => {
       this.activateEditing = false;
     });
   }
@@ -117,10 +118,40 @@ export class AddAndEditComponent implements OnInit, OnDestroy {
 
   isControlInvalid(controlName: string): boolean {
     const control = this.formModelEditStudent.controls[controlName];
-
     const result = control.invalid && control.touched;
 
     return result;
+  }
+
+  isControlInvalidFormAdd(controlName: string): boolean {
+    const control = this.formModelAddingStudent.controls[controlName];
+    const result = control.invalid && control.touched;
+
+    return result;
+  }
+
+  get _DOB(): AbstractControl {
+    return this.formModelEditStudent.get("DOB");
+  }
+
+  get _GPA(): AbstractControl {
+    return this.formModelEditStudent.get("GPA");
+  }
+
+  get _DOBadd(): AbstractControl {
+    return this.formModelAddingStudent.get("DOB");
+  }
+
+  get _GPAadd(): AbstractControl {
+    return this.formModelAddingStudent.get("GPA");
+  }
+
+  get _fullName(): AbstractControl {
+    return this.formModelEditStudent.get("fullName");
+  }
+
+  get _fullNameAdd(): AbstractControl {
+    return this.formModelAddingStudent.get("fullName");
   }
 
   onSubmitEditForm(): void {
@@ -147,7 +178,7 @@ export class AddAndEditComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.activateEditing = false;
       this.successfully = false;
-    }, 1000);
+    }, 800);
   }
 
   onSubmitAddForm(): void {
@@ -168,15 +199,12 @@ export class AddAndEditComponent implements OnInit, OnDestroy {
       GPA: modelAdd.GPA,
     };
 
-    console.log(addStudent);
-    console.log(this.studentsList);
-
     this.SL.studentAdd(addStudent, this.studentsList);
     this.successfully = true;
 
     setTimeout(() => {
       this.activateOfAdd = false;
       this.successfully = false;
-    }, 1000);
+    }, 800);
   }
 }

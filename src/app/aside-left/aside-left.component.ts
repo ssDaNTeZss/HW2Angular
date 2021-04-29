@@ -24,7 +24,7 @@ export class AsideLeftComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
-  addFilterOption(Form: NgForm) {
+  addFilterOption(Form: NgForm): void {
 
     if (Form.value.search) {
       this.simpleService.changeSearch(Form.value.search.split(" "));

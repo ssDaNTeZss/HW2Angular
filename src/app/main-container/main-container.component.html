@@ -5,13 +5,16 @@
       <div class="all-entries"
            (click)="fullList()"
            [ngClass]="{
-           'all-entries__border-bottom': !filtrationByLastname && !filtrationByDOB && !filtrationByGPA
+           'all-entries__border-bottom': this.allEntries
            }">
         <span style="font-size: 20pt; font-weight: bold">Все</span>
         <p style="font-size: 16pt; font-weight: normal; margin: 7px 0 0 0">записи</p>
       </div>
       <div class="all-entries"
-      (click)="addingStudent()">
+           (click)="addingStudent()"
+           [ngClass]="{
+           'all-entries__border-bottom': this.activateOfAdd
+           }">
         <span style="font-size: 20pt; font-weight: bold">Новая</span>
         <p style="font-size: 16pt; font-weight: normal; margin: 7px 0 0 0">запись</p>
       </div>

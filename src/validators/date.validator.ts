@@ -2,7 +2,7 @@ import { AbstractControl, ValidatorFn } from "@angular/forms";
 
 export function dateValidator(): ValidatorFn {
   return (
-    control: AbstractControl
+    control: AbstractControl,
   ): { [key: string]: boolean } | null => {
     const NOW = new Date();
     const TODAY = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate());
@@ -15,7 +15,7 @@ export function dateValidator(): ValidatorFn {
       AGE--;
     }
 
-    let valid = !control.value || AGE > 10;
+    const valid = !control.value || AGE > 10;
     return valid ? null : { date: true };
   };
 }

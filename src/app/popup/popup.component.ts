@@ -14,8 +14,8 @@ export class PopupComponent implements OnInit, OnDestroy  {
 
   SL = new StudentList();
   activePopup: boolean;
-  student: any;
-  studentsList: [];
+  student: Student;
+  studentsList: Student[];
   activePopupDone: boolean;
 
   constructor(
