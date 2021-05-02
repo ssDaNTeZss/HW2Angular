@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { SimpleService } from "../simple.service";
 import { Student, StudentList } from "../student-list";
@@ -6,7 +6,8 @@ import { Student, StudentList } from "../student-list";
 @Component({
   selector: "app-main-container",
   templateUrl: "./main-container.component.html",
-  styleUrls: ["./main-container.component.css"]
+  styleUrls: ["./main-container.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class MainContainerComponent implements OnInit, OnDestroy {
@@ -28,6 +29,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly simpleService: SimpleService,
+    private cd: ChangeDetectorRef,
   ) {
   }
 
@@ -35,6 +37,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
     this.students = this.SL.returnNormalSL();
     this.subs = this.simpleService.STUDENTS$.subscribe((student) => {
       this.students = student;
+      this.cd.detectChanges();
     });
 
     this.subs = this.simpleService.resetTable$.subscribe(() => this.fullList());
@@ -68,6 +71,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
       this.students = this.SL.sorting("lastName", "ZtoA", this.students);
       this.filtrationByLastnameAZ = !this.filtrationByLastnameAZ;
     }
+    this.cd.detectChanges();
   }
 
   sortByDOB(): void {
@@ -84,6 +88,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
       this.students = this.SL.sorting("DOB", "ZtoA", this.students);
       this.filtrationByDOBAZ = !this.filtrationByDOBAZ;
     }
+    this.cd.detectChanges();
   }
 
   sortByGPA(): void {
@@ -100,6 +105,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
       this.students = this.SL.sorting("GPA", "ZtoA", this.students);
       this.filtrationByGPAAZ = !this.filtrationByGPAAZ;
     }
+    this.cd.detectChanges();
   }
 
   fullList(): void {

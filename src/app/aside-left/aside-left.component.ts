@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { SimpleService } from "../simple.service";
@@ -6,7 +6,8 @@ import { SimpleService } from "../simple.service";
 @Component({
   selector: "app-aside-left",
   templateUrl: "./aside-left.component.html",
-  styleUrls: ["./aside-left.component.css"]
+  styleUrls: ["./aside-left.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class AsideLeftComponent implements OnInit, OnDestroy {
@@ -14,6 +15,7 @@ export class AsideLeftComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly simpleService: SimpleService,
+    private cd: ChangeDetectorRef,
   ) {
   }
 
@@ -25,7 +27,6 @@ export class AsideLeftComponent implements OnInit, OnDestroy {
   }
 
   addFilterOption(Form: NgForm): void {
-
     if (Form.value.search) {
       this.simpleService.changeSearch(Form.value.search.split(" "));
     }

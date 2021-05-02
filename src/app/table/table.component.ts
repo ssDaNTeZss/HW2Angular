@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, Input, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { SimpleService } from "../simple.service";
 import { Student, StudentList } from "../student-list";
@@ -6,9 +6,10 @@ import { Student, StudentList } from "../student-list";
 @Component({
   selector: "app-table",
   templateUrl: "./table.component.html",
-  styleUrls: ["./table.component.css"]
+  styleUrls: ["./table.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableComponent implements OnInit, OnDestroy {
+export class TableComponent implements OnInit, OnDestroy, DoCheck {
   private subs: Subscription;
 
   @Input() needRed?: boolean;
@@ -27,6 +28,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly simpleService: SimpleService,
+    private cd: ChangeDetectorRef,
   ) {
   }
 
@@ -34,12 +36,17 @@ export class TableComponent implements OnInit, OnDestroy {
     this.subs = this.simpleService.resetTable$.subscribe(() => {
         this.warningLog = false;
         this.students = this.SL.returnNormalSL();
+        this.cd.detectChanges();
     });
 
     this.subs = this.simpleService.activePopup$.subscribe((activePopup) => this.activePopup = activePopup);
-    this.subs = this.simpleService.search$.subscribe((search) => this.search = search);
+    this.subs = this.simpleService.search$.subscribe((search) => {
+        this.search = search;
+    });
 
-    this.subs = this.simpleService.dateType$.subscribe((dateType) => this.dateType = dateType);
+    this.subs = this.simpleService.dateType$.subscribe((dateType) => {
+      this.dateType = dateType;
+    });
     this.subs = this.simpleService.GPAType$.subscribe((GPAType) => {
       this.GPAType = GPAType;
     });
@@ -61,6 +68,10 @@ export class TableComponent implements OnInit, OnDestroy {
         this.showError();
       }
     });
+  }
+
+  ngDoCheck(): void {
+    this.cd.detectChanges();
   }
 
   showError(): void {

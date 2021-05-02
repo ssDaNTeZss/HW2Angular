@@ -10,6 +10,7 @@ import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from "./header/header.component";
 import { MainContainerComponent } from "./main-container/main-container.component";
 import { MainComponent } from "./main/main.component";
+import { AddAndEditStudentsModule } from "./modules/add-and-edit-students/add-and-edit-students.module";
 import { PopupComponent } from "./popup/popup.component";
 import { TableComponent } from "./table/table.component";
 
@@ -30,6 +31,7 @@ import { TableComponent } from "./table/table.component";
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
+        AddAndEditStudentsModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,6 +5,7 @@ import { Student } from "./student-list";
 @Injectable({
   providedIn: "root"
 })
+
 export class SimpleService {
   public activePopup$ = new Subject<boolean>();
   public activateEditing$ = new Subject<boolean>();
