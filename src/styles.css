@@ -998,6 +998,12 @@ button:disabled {
   padding-right: 40px;
 }
 
+.table-user__td-GPA {
+  font-size: 20pt;
+  font-weight: bold;
+  padding-right: 40px;
+}
+
 .table-user__td-GPA.color-green {
   font-size: 20pt;
   font-weight: bold;

@@ -25,6 +25,8 @@ export class TableComponent implements OnInit, OnDestroy, DoCheck {
   GPAType: "GPAFrom" | "GPATo" | "GPADouble";
   dateArr: string[];
   warningLog = false;
+  lengthYd = 20;
+  DegreeCelsius = 25;
 
   constructor(
     private readonly simpleService: SimpleService,
