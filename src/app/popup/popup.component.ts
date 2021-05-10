@@ -49,6 +49,7 @@ export class PopupComponent implements OnInit, OnDestroy  {
   }
 
   onDeletion(): void {
+    // @ts-ignore
     this.simpleService.transferStudents(this.SL.removingStudent(this.student, this.studentsList));
     this.closePopup();
     this.activePopupDone = true;

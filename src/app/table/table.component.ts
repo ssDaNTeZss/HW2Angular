@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, Input, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { SimpleService } from "../simple.service";
 import { Student, StudentList } from "../student-list";
@@ -31,19 +32,20 @@ export class TableComponent implements OnInit, OnDestroy, DoCheck {
   constructor(
     private readonly simpleService: SimpleService,
     private cd: ChangeDetectorRef,
+    private router: Router,
   ) {
   }
 
   ngOnInit(): void {
     this.subs = this.simpleService.resetTable$.subscribe(() => {
-        this.warningLog = false;
-        this.students = this.SL.returnNormalSL();
-        this.cd.detectChanges();
+      this.warningLog = false;
+      this.students = this.SL.returnNormalSL();
+      this.cd.detectChanges();
     });
 
     this.subs = this.simpleService.activePopup$.subscribe((activePopup) => this.activePopup = activePopup);
     this.subs = this.simpleService.search$.subscribe((search) => {
-        this.search = search;
+      this.search = search;
     });
 
     this.subs = this.simpleService.dateType$.subscribe((dateType) => {
@@ -96,12 +98,16 @@ export class TableComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   onEditing(student: Student): void {
-    this.activateEditing = true;
+    this.router.navigate(["student/edit", student.id]);
 
-    this.simpleService.changeActivateOfAdd(false);
+    setTimeout(() => {
+      this.activateEditing = true;
 
-    this.simpleService.changeActivateEditing(this.activateEditing);
-    this.simpleService.changeStudent(student);
-    this.simpleService.changeStudentsList(this.students);
+      this.simpleService.changeActivateOfAdd(false);
+
+      this.simpleService.changeActivateEditing(this.activateEditing);
+      this.simpleService.changeStudent(student);
+      this.simpleService.changeStudentsList(this.students);
+    }, 1);
   }
 }

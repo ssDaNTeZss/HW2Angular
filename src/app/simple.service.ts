@@ -25,6 +25,8 @@ export class SimpleService {
 
   public STUDENTS$ = new Subject<Student[]>();
 
+  public editingAccess$ = new Subject<boolean>();
+
 
   public changeActivePopup(activePopup: boolean): void {
     this.activePopup$.next(activePopup);
@@ -72,6 +74,10 @@ export class SimpleService {
 
   public transferStudents(students: Student[]): void {
     this.STUDENTS$.next(students);
+  }
+
+  public selectEditAccess(editingAccess: boolean): void {
+    this.editingAccess$.next(editingAccess);
   }
 }
 

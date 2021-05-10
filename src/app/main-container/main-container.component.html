@@ -12,6 +12,7 @@
       </div>
       <div class="all-entries"
            (click)="addingStudent()"
+
            [ngClass]="{
            'all-entries__border-bottom': this.activateOfAdd
            }">
@@ -61,7 +62,8 @@
       </div>
     </div>
 <!--    <app-add-and-edit></app-add-and-edit>-->
-    <app-add-and-edit-form></app-add-and-edit-form>
+<!--    <app-add-and-edit-form></app-add-and-edit-form>-->
+    <router-outlet></router-outlet>
     <app-table [needRed]="needRed" [students]="students" [filtrationAZ]="filtrationAZ"></app-table>
   </div>
 </div>

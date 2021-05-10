@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { SimpleService } from "../simple.service";
 import { Student, StudentList } from "../student-list";
+import construct = Reflect.construct;
 
 @Component({
   selector: "app-main-container",
@@ -30,6 +32,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
   constructor(
     private readonly simpleService: SimpleService,
     private cd: ChangeDetectorRef,
+    private router: Router,
   ) {
   }
 
@@ -126,10 +129,14 @@ export class MainContainerComponent implements OnInit, OnDestroy {
   }
 
   addingStudent(): void {
-    this.simpleService.changeActivateEditing(false);
-    this.allEntries = !this.allEntries;
-    this.activateOfAdd = !this.activateOfAdd;
-    this.simpleService.changeStudentsList(this.students);
-    this.simpleService.changeActivateOfAdd(this.activateOfAdd);
+    this.router.navigate(["student/create"]);
+
+    setTimeout(() => {
+      this.simpleService.changeActivateEditing(false);
+      this.allEntries = !this.allEntries;
+      this.activateOfAdd = !this.activateOfAdd;
+      this.simpleService.changeStudentsList(this.students);
+      this.simpleService.changeActivateOfAdd(this.activateOfAdd);
+    }, 1);
   }
 }
