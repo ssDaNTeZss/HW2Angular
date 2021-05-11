@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, Input, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import { AppService } from "../app.service";
 import { SimpleService } from "../simple.service";
 import { Student, StudentList } from "../student-list";
 
@@ -29,14 +30,18 @@ export class TableComponent implements OnInit, OnDestroy, DoCheck {
   lengthYd = 20;
   DegreeCelsius = 25;
 
+  st: Student[];
+
   constructor(
     private readonly simpleService: SimpleService,
     private cd: ChangeDetectorRef,
     private router: Router,
+    private appService: AppService,
   ) {
   }
 
   ngOnInit(): void {
+
     this.subs = this.simpleService.resetTable$.subscribe(() => {
       this.warningLog = false;
       this.students = this.SL.returnNormalSL();

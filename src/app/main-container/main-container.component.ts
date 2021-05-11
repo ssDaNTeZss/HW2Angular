@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { SimpleService } from "../simple.service";
 import { Student, StudentList } from "../student-list";
-import construct = Reflect.construct;
 
 @Component({
   selector: "app-main-container",
@@ -29,6 +28,9 @@ export class MainContainerComponent implements OnInit, OnDestroy {
   activateOfAdd = false;
   allEntries = true;
 
+  title = "node-express-angular";
+  status = "DOWN";
+
   constructor(
     private readonly simpleService: SimpleService,
     private cd: ChangeDetectorRef,
@@ -37,6 +39,7 @@ export class MainContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
     this.students = this.SL.returnNormalSL();
     this.subs = this.simpleService.STUDENTS$.subscribe((student) => {
       this.students = student;
